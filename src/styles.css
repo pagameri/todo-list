@@ -1,0 +1,108 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: lightskyblue;
+}
+
+.container {
+  width: 95vw;
+  height: 100vh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(min(250px, 400px), 1fr) minmax(min(450px, 100%), 3fr);
+  grid-template-rows: 80px 1fr;
+}
+
+header {
+  font-size: 2rem;
+  grid-area: 1 / 1 / 2 / 3;
+  align-self: center;
+  background-color: lightblue;
+  padding: 25px 10px;
+}
+
+.side-bar {
+  background-color: lightpink;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.due-groups,
+.projects {
+  padding: 25px 10px 0;
+}
+
+li {
+  list-style: none;
+}
+
+.due-groups li,
+.projects li {
+  padding-top: 5px;
+}
+
+.main-content {
+  background-color: lightcyan; 
+  padding: 25px 25px;
+  display: flex;
+  flex-direction: column;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas:"today tomorrow . new-task new-project";
+  justify-items: center;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 50px;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+}
+
+#show-today {
+  grid-area: today;
+}
+
+#show-tomorrow {
+  grid-area: tomorrow;
+}
+
+#add-new-task {
+  grid-area: new-task;
+}
+
+#add-new-project {
+  grid-area: new-project;
+}
+
+.view {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  grid-template-rows: 50px 1fr;
+}
+
+.head-line {
+  grid-area: 1 / 1 / 2 / 3;
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid lightgray;
+}
