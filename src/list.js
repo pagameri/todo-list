@@ -1,7 +1,8 @@
 import { DOMManager } from "./index.js"; 
-import { format } from "date-fns/locale";
+import { formatISO, getHours, getMinutes } from "date-fns";
 import { enGB } from 'date-fns/locale';
 const locales = {enGB};
+
 
 const formDOMManager = (() => {
   const title = document.querySelector('#title');
@@ -29,13 +30,15 @@ const formDOMManager = (() => {
     project,
     description
   }
-})()
+})();
 
-const TodoMaker = (title, /*color,*/ dueDate, dueTime, alert, repeat, ends, endDate, priority, project, description) => {
+let dataCount = 0;
+const list = [];
+
+const TodoMaker = (title, /*color,*/ due, alert, repeat, ends, endDate, priority, project, description) => {
   title: title;
   // color: color;
-  dueDate: dueDate;
-  dueTime: dueTime;
+  due: due;
   alert: alert;
   repeat: repeat;
   ends: ends;
@@ -44,52 +47,36 @@ const TodoMaker = (title, /*color,*/ dueDate, dueTime, alert, repeat, ends, endD
   project: project;
   description: description;
 
-  return {title, dueDate, dueTime, alert, repeat, ends, endDate, priority, project, description}
+  return {title, due, alert, repeat, ends, endDate, priority, project, description}
 }
 
-const list = [
 
-];
-
-export function addNewTaskToList() {
-  let task = TodoMaker(
-    formDOMManager.title.value,
-    /*formDOMManager.color,*/
-    formDOMManager.dueDate.value,
-    formDOMManager.dueTime.value,
-    formDOMManager.alert.value,
-    formDOMManager.repeat.value, 
-    formDOMManager.ends.value, 
-    formDOMManager.endDate.value, 
-    formDOMManager.priority.value,
-    formDOMManager.project.value,
-    formDOMManager.description.value);
-
-  list.push(task)
-}
-
-let dataCount = 0;
-
-export function populateTaskList() {
-  DOMManager.tableBody.innerHTML = '';
-  dataCount = 0;
-  if (list.length > 1) {
-    sortList();
+function dueDateTime() {
+  const dateFromPicker = formDOMManager.dueDate.value;
+  const timeFromPicker = formDOMManager.dueTime.value;
+  let dateParts, timeParts;
+  if (dateFromPicker === '') {
+    return 'no-date'
+  } else {
+    dateParts = dateFromPicker.split('-');
   }
-  for (let element of list) {
-    // if (element.dueDate === )
-    addTask(element);
-    addHiddenDescription(element);
-    // addChecklist()
+  if (timeFromPicker === '') {
+    timeParts = ['09', '00'];
+  } else {
+    timeParts = timeFromPicker.split(':');
   }
-
-
+  return formatISO(new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1]));
 }
 
-function sortList() {
-  list.sort((a, b) => a.dueDate - b.dueDate);
-  console.log(list);
+
+function sortListByDate() {
+  list.sort((a, b) => {
+    let x = new Date(a.due).getTime();
+    let y = new Date(b.due).getTime();
+    return x - y;
+  });
 }
+
 
 function addTask(element) {
   let row = DOMManager.tableBody.insertRow();
@@ -102,7 +89,7 @@ function addTask(element) {
 
   let rowValues = [
     element.title,
-    element.dueTime,
+    getTime(element.due),
     element.repeat,
     element.priority,
     element.project,
@@ -114,6 +101,17 @@ function addTask(element) {
   });
 }
 
+
+function getTime(dueDate) {
+  let date = new Date(dueDate);
+  let time = date.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  return time;
+}
+
+
 function addHiddenDescription(element) {
   let hiddenRow = DOMManager.tableBody.insertRow();
   hiddenRow.classList.add('hidden-row');
@@ -124,19 +122,45 @@ function addHiddenDescription(element) {
   hiddenCell.appendChild(hiddenText);
 }
 
-export function clearTaskModal() {
-  formDOMManager.title.value = '',
-    /*formDOMManager.color = '',*/
-    formDOMManager.dueDate.value = '',
-    formDOMManager.dueTime.value = '',
-    formDOMManager.alert.value = '',
-    formDOMManager.repeat.value = '', 
-    formDOMManager.ends.value = '', 
-    formDOMManager.endDate.value = '', 
-    formDOMManager.priority.value = '',
-    formDOMManager.project.value = '',
-    formDOMManager.description.value = ''
+
+
+export function addNewTaskToList() {
+  let task = TodoMaker(
+    formDOMManager.title.value,
+    /*formDOMManager.color,*/
+    dueDateTime(),
+    formDOMManager.alert.value,
+    formDOMManager.repeat.value, 
+    formDOMManager.ends.value, 
+    formDOMManager.endDate.value, 
+    formDOMManager.priority.value,
+    formDOMManager.project.value,
+    formDOMManager.description.value
+  );
+  list.push(task)
 }
+
+
+export function populateTaskList() {
+  DOMManager.tableBody.innerHTML = '';
+  dataCount = 0;
+  if (list.length > 1) {
+    sortListByDate();
+    console.table(list);
+  }
+  for (let element of list) {
+    // add if: today's task
+    addTask(element);
+    addHiddenDescription(element);
+    // addChecklist()
+  }
+}
+
+
+export function clearTaskModal() {
+  document.forms['new-task-form'].reset();
+}
+
 
 export function toggleTaskInfo(row) {
   row.classList.toggle('hidden-row');
