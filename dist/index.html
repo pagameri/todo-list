@@ -19,6 +19,7 @@
         <li class="done">Done</li>
       </ul>
       <ul class="projects">
+        <li class="general">General</li>
         <li class="family">Family</li>
         <li class="chores">Chores</li>
         <li class="car">Car</li>
@@ -29,6 +30,7 @@
       <div class="actions">
         <button type="button" id="show-today">Today</button>
         <button type="button" id="show-tomorrow">Tomorrow</button>
+        <button type="button" id="show-exact-date">Exact Date</button>
         <button type="button" id="add-new-task">Add New Task</button>
         <button type="button" id="add-new-project">Add New Project</button>
       </div>
@@ -48,7 +50,7 @@
             <th>Label</th>
           </thead>
           <tbody>
-            <tr>
+            <!-- <tr>
               <td><input type="checkbox"></td>
               <td>Clean the house</td>
               <td>9am</td>
@@ -63,11 +65,86 @@
               <td>recurring sign</td>
               <td>low</td>
               <td>Car</td>
-            </tr>
+            </tr> -->
+            
           </tbody>
         </table>
       </div>
     </div>
+    <div class="view">
+      <div class="head-line">
+        <div>Tomorrow</div>
+        <div>View</div>
+      </div>
+      <div class="task-list">
+        <table>
+          <thead>
+            <th></th>
+          <th>Task</th>
+          <th>Time</th>
+          <th>Recurring</th>
+          <th>Priority</th>
+          <th>Label</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>Clean the house</td>
+            <td>9am</td>
+            <td>recurring sign</td>
+            <td>high</td>
+            <td>Chores</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td>Clean the car</td>
+            <td>10am</td>
+            <td>recurring sign</td>
+            <td>low</td>
+            <td>Car</td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="view">
+    <div class="head-line">
+      <div>Upcoming</div>
+      <div>View</div>
+    </div>
+    <div class="task-list">
+      <table>
+        <thead>
+          <th></th>
+        <th>Task</th>
+        <th>Time</th>
+        <th>Recurring</th>
+        <th>Priority</th>
+        <th>Label</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>Clean the house</td>
+          <td>9am</td>
+          <td>recurring sign</td>
+          <td>high</td>
+          <td>Chores</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox"></td>
+          <td>Clean the car</td>
+          <td>10am</td>
+          <td>recurring sign</td>
+          <td>low</td>
+          <td>Car</td>
+        </tr>
+        
+      </tbody>
+    </table>
+  </div>
+</div>
     
   </div>
 </div>
@@ -80,7 +157,93 @@
       </div>
       <div class="modal-content">
         <form action="">
+          <fieldset>
+            <!-- <label for="title">Title</label> -->
+            <input type="text" name="title" id="title" placeholder="Title">
 
+            <!-- <input type="color" name="color" id="color"> -->
+          </fieldset>
+          
+          <fieldset>
+            <span>
+              <label for="due-date">Due Date</label>
+              <!-- use toggle option?? -->
+              <input type="date" name="due-date" id="due-date">
+            </span>
+
+            <span>
+              <label for="due-time">Time</label>
+               <!-- use toggle option?? -->
+              <input type="time" name="due-time" id="due-time">
+            </span>
+
+            <span>
+              <label for="alert">Alert</label>
+              <select name="alert" id="alert">
+                <option value="none" default>None</option>
+                <option value="9:00-on-day">On day of task (09:00)</option>
+                <option value="1-day-before">1 day before (09:00)</option>
+                <option value="2-days-before">2 days before (09:00)</option>
+                <option value="1-week-before">1 week before (09:00)</option>
+              </select>
+            </span>
+          </fieldset>
+
+          <fieldset>
+            <span>
+              <label for="repeat">Repeat</label>
+              <select name="repeat" id="repeat">
+                <option value="none" default>None</option>
+                <option value="every-day">Every Day</option>
+                <option value="every-week">Every Week</option>
+                <option value="every-month">Every Month</option>
+                <option value="every-year">Every Year</option>
+                <!-- <option value="custom">Custom</option> -->
+              </select>
+            </span>
+            
+            <span>
+              <label for="ends">Ends</label>
+               <!-- use toggle option?? -->
+               <input type="checkbox" name="ends" id="ends">
+            </span>
+             <span><input type="date" name="end-date" id="end-date"></span>
+          </fieldset>
+
+          <!-- <fieldset>
+            <label for="checklist">Checklist</label>
+            <input type="text" name="checklist" id="checklist">
+          </fieldset> -->
+           
+           <fieldset>
+             <span>
+               <label for="priority">Priority</label>
+               <select name="priority" id="priority">
+                <option value="none">None</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+               </select>
+             </span>
+
+             <span>
+               <label for="project">Project</label>
+               <select name="project" id="project">
+                <option value="General">General</option>
+                <option value="Family">Family</option>
+                <option value="Chores">Chores</option>
+                <option value="Car">Car</option>
+                <option value="Grocery">Grocery</option>
+               </select>
+             </span>
+
+             <span>
+               <label for="description">Description</label>
+                         <textarea name="description" id="description" rows="4" cols="50"></textarea>
+             </span>
+           </fieldset>
+
+          <button type="submit" id="submit-new-task">Add Task</button>
         </form>
       </div>
     </div>
