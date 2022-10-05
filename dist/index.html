@@ -12,12 +12,21 @@
     <div>ToDo'er</div>
   </header>
     <div class="side-bar">
+      <button type="button" id="add-new-task">Add New Task</button>
       <ul class="due-groups">
         <li class="today">Today</li>
         <li class="upcoming">Upcoming</li>
         <li class="anytime">Anytime</li>
         <li class="done">Done</li>
+        <li class="past">Past</li>
       </ul>
+      <details class="side-details">
+        <summary>Add New Project</summary>
+        <form action="" name="new-project-form">
+            <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" required>
+            <button type="submit" id="submit-new-project">Add Project</button>
+        </form>
+      </details>
       <ul class="projects">
         <li class="general">General</li>
         <li class="family">Family</li>
@@ -27,13 +36,6 @@
         </ul>
     </div>
     <div class="main-content">
-      <div class="actions">
-        <button type="button" id="show-today">Today</button>
-        <button type="button" id="show-tomorrow">Tomorrow</button>
-        <button type="button" id="show-exact-date">Exact Date</button>
-        <button type="button" id="add-new-task">Add New Task</button>
-        <button type="button" id="add-new-project">Add New Project</button>
-      </div>
       <div class="view">
         <div class="head-line">
           <div>Today</div>
@@ -49,24 +51,7 @@
             <th>Priority</th>
             <th>Label</th>
           </thead>
-          <tbody>
-            <!-- <tr>
-              <td><input type="checkbox"></td>
-              <td>Clean the house</td>
-              <td>9am</td>
-              <td>recurring sign</td>
-              <td>high</td>
-              <td>Chores</td>
-            </tr>
-            <tr>
-              <td><input type="checkbox"></td>
-              <td>Clean the car</td>
-              <td>10am</td>
-              <td>recurring sign</td>
-              <td>low</td>
-              <td>Car</td>
-            </tr> -->
-            
+          <tbody id="table-today">            
           </tbody>
         </table>
       </div>
@@ -74,36 +59,10 @@
     <div class="view">
       <div class="head-line">
         <div>Tomorrow</div>
-        <div>View</div>
       </div>
       <div class="task-list">
         <table>
-          <thead>
-            <th></th>
-          <th>Task</th>
-          <th>Time</th>
-          <th>Recurring</th>
-          <th>Priority</th>
-          <th>Label</th>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td>Clean the house</td>
-            <td>9am</td>
-            <td>recurring sign</td>
-            <td>high</td>
-            <td>Chores</td>
-          </tr>
-          <tr>
-            <td><input type="checkbox"></td>
-            <td>Clean the car</td>
-            <td>10am</td>
-            <td>recurring sign</td>
-            <td>low</td>
-            <td>Car</td>
-          </tr>
-          
+        <tbody id="table-tomorrow">
         </tbody>
       </table>
     </div>
@@ -111,36 +70,10 @@
   <div class="view">
     <div class="head-line">
       <div>Upcoming</div>
-      <div>View</div>
     </div>
     <div class="task-list">
       <table>
-        <thead>
-          <th></th>
-        <th>Task</th>
-        <th>Time</th>
-        <th>Recurring</th>
-        <th>Priority</th>
-        <th>Label</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td>Clean the house</td>
-          <td>9am</td>
-          <td>recurring sign</td>
-          <td>high</td>
-          <td>Chores</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox"></td>
-          <td>Clean the car</td>
-          <td>10am</td>
-          <td>recurring sign</td>
-          <td>low</td>
-          <td>Car</td>
-        </tr>
-        
+      <tbody id="table-upcoming">
       </tbody>
     </table>
   </div>
@@ -157,8 +90,6 @@
       </div>
       <div class="modal-content">
         <form action="" name="new-task-form">
-          <fieldset>
-            <!-- <label for="title">Title</label> -->
             <input type="text" name="title" id="title" placeholder="Title">
 
             <!-- <input type="color" name="color" id="color"> -->
@@ -239,22 +170,11 @@
 
              <span>
                <label for="description">Description</label>
-                         <textarea name="description" id="description" rows="4" cols="50"></textarea>
+                <textarea name="description" id="description" rows="4" cols="50"></textarea>
              </span>
            </fieldset>
 
           <button type="submit" id="submit-new-task">Add Task</button>
-        </form>
-      </div>
-    </div>
-    <div id="new-project-modal" class="modal closed">
-      <div class="modal-header">
-        <span id="close-new-project" class="close-button">&times;</span>
-        <div>New Project</div>
-      </div>
-      <div class="modal-content">
-        <form action="">
-
         </form>
       </div>
     </div>

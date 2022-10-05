@@ -1,32 +1,44 @@
 import './styles.css';
-import { toggleNewTaskModal, toggleNewProjectModal } from './modalMngr.js';
-import { addNewTaskToList, populateTaskList, clearTaskModal, toggleTaskInfo } from './list.js';
+import { toggleNewTaskModal, clearTaskModal, toggleTaskInfo } from './modalMngr.js';
+import { addNewTaskToList, updateTaskList } from './list.js';
+import { addNewProject, clearProjectInput, closeSideDetailsTab } from './projectControl.js'
 
 export const DOMManager = (() => {
+  const dueGroupSideBar = document.querySelector('.due-groups');
+  const projectSideBar = document.querySelector('.projects');
+  const sidebarDetails = document.querySelector('.side-details');
   const modalOverlay = document.querySelector('.modal-overlay');
   const newTaskBtn = document.querySelector('#add-new-task');
   const newTaskModal = document.querySelector('#new-task-modal');
+  const selectProject = document.querySelector('#project');
   const closeNewTaskModal = document.querySelector('#close-new-task');
-  const newProjectBtn = document.querySelector('#add-new-project');
-  const newProjectModal = document.querySelector('#new-project-modal');
-  const closeNewProjectModal = document.querySelector('#close-new-project');
   const submitNewTask = document.querySelector('#submit-new-task');
-  const tableBody = document.querySelector('tbody');
+  const submitNewProject = document.querySelector('#submit-new-project');
+  const tableBody = document.querySelectorAll('tbody');
+  const tableBodyToday = document.querySelector('#table-today');
+  const tableBodyTomorrow = document.querySelector('#table-tomorrow');
+  const tableBodyUpcoming= document.querySelector('#table-upcoming');
   let expendableRows = document.querySelectorAll('.expendable');
 
   return {
+    dueGroupSideBar,
+    projectSideBar,
+    sidebarDetails,
     newTaskBtn,
     newTaskModal,
+    selectProject,
     modalOverlay,
     closeNewTaskModal,
-    newProjectBtn,
-    newProjectModal,
-    closeNewProjectModal,
     submitNewTask,
+    submitNewProject,
     tableBody,
+    tableBodyToday,
+    tableBodyTomorrow,
+    tableBodyUpcoming,
     expendableRows,
     }
 })();
+
 
 DOMManager.newTaskBtn.addEventListener('click', () => {
   toggleNewTaskModal();
@@ -36,22 +48,31 @@ DOMManager.closeNewTaskModal.addEventListener('click', () => {
   toggleNewTaskModal();
 });
 
-DOMManager.newProjectBtn.addEventListener('click', () => {
-  toggleNewProjectModal();
-});
-
-DOMManager.closeNewProjectModal.addEventListener('click', () => {
-  toggleNewProjectModal();
-});
-
 DOMManager.submitNewTask.addEventListener('click', (event) => {
   event.preventDefault();
   toggleNewTaskModal();
   addNewTaskToList();
-  populateTaskList();
+  updateTaskList();
   clearTaskModal();
   DOMManager.expendableRows = document.querySelectorAll('.expendable');
   attachRowListener();
+})
+
+DOMManager.submitNewProject.addEventListener('click', (event) => {
+  event.preventDefault();
+  addNewProject();
+  clearProjectInput();
+  closeSideDetailsTab();
+})
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    if (!DOMManager.newTaskModal.classList.contains('closed')) {
+      toggleNewTaskModal();
+    } else if (!DOMManager.newProjectModal.classList.contains('closed')) {
+      toggleNewProjectModal();
+    }
+  }
 })
 
 function attachRowListener() {

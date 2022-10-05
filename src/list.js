@@ -1,5 +1,6 @@
 import { DOMManager } from "./index.js"; 
-import { formatISO, getHours, getMinutes } from "date-fns";
+import { updateTasksInProjects } from "./projectControl.js"
+import { formatISO, getHours, getMinutes, isToday, isTomorrow, isPast } from "date-fns";
 import { enGB } from 'date-fns/locale';
 const locales = {enGB};
 
@@ -33,7 +34,7 @@ const formDOMManager = (() => {
 })();
 
 let dataCount = 0;
-const list = [];
+export const list = [];
 
 const TodoMaker = (title, /*color,*/ due, alert, repeat, ends, endDate, priority, project, description) => {
   title: title;
@@ -48,6 +49,17 @@ const TodoMaker = (title, /*color,*/ due, alert, repeat, ends, endDate, priority
   description: description;
 
   return {title, due, alert, repeat, ends, endDate, priority, project, description}
+}
+
+
+
+function getTime(dueDate) {
+  let date = new Date(dueDate);
+  let time = date.toLocaleTimeString(undefined, {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  return time;
 }
 
 
@@ -69,7 +81,7 @@ function dueDateTime() {
 }
 
 
-function sortListByDate() {
+function sortListByDate(list) {
   list.sort((a, b) => {
     let x = new Date(a.due).getTime();
     let y = new Date(b.due).getTime();
@@ -78,8 +90,8 @@ function sortListByDate() {
 }
 
 
-function addTask(element) {
-  let row = DOMManager.tableBody.insertRow();
+function addTask(element, table) {
+  let row = table.insertRow();
   row.dataset.listId = dataCount;
   row.classList.add('expendable');
   let cell = row.insertCell();
@@ -102,18 +114,8 @@ function addTask(element) {
 }
 
 
-function getTime(dueDate) {
-  let date = new Date(dueDate);
-  let time = date.toLocaleTimeString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-  return time;
-}
-
-
-function addHiddenDescription(element) {
-  let hiddenRow = DOMManager.tableBody.insertRow();
+function addHiddenDescription(element, table) {
+  let hiddenRow = table.insertRow();
   hiddenRow.classList.add('hidden-row');
   hiddenRow.insertCell();
   let hiddenCell = hiddenRow.insertCell();
@@ -121,7 +123,6 @@ function addHiddenDescription(element) {
   let hiddenText = document.createTextNode(element.description);
   hiddenCell.appendChild(hiddenText);
 }
-
 
 
 export function addNewTaskToList() {
@@ -137,31 +138,58 @@ export function addNewTaskToList() {
     formDOMManager.project.value,
     formDOMManager.description.value
   );
-  list.push(task)
+  list.push(task);
+  updateTasksInProjects();
 }
 
 
-export function populateTaskList() {
-  DOMManager.tableBody.innerHTML = '';
-  dataCount = 0;
-  if (list.length > 1) {
-    sortListByDate();
-    console.table(list);
-  }
+export function updateTaskList() {
+  let todaysList = [];
+  let tomorrowsList = [];
+  let upcomingList = [];
+  let lists = [todaysList, tomorrowsList, upcomingList];
+
   for (let element of list) {
-    // add if: today's task
-    addTask(element);
-    addHiddenDescription(element);
-    // addChecklist()
+    let date = new Date(element.due);
+    if (isToday(date)) {
+      todaysList.push(element);
+    } else if (isTomorrow(date)) {
+      tomorrowsList.push(element);
+    } else if (!isPast(date)) {
+      upcomingList.push(element);
+    } 
   }
-}
+  DOMManager.tableBody.forEach((body) => {
+    body.innerHTML = '';
+  }) 
+  dataCount = 0;
+  
+  if (todaysList.length > 1) {
+    sortListByDate(todaysList);
+    console.table(todaysList);
+  }
+  if (tomorrowsList.length > 1) {
+    sortListByDate(tomorrowsList);
+    console.table(tomorrowsList);
+  }
+  if (upcomingList.length > 1) {
+    sortListByDate(upcomingList);
+    console.table(upcomingList);
+  }
 
-
-export function clearTaskModal() {
-  document.forms['new-task-form'].reset();
-}
-
-
-export function toggleTaskInfo(row) {
-  row.classList.toggle('hidden-row');
+  for (let list of lists) {
+    let table;
+    if (list === todaysList) {
+      table = DOMManager.tableBodyToday;
+    } else if (list === tomorrowsList) {
+      table = DOMManager.tableBodyTomorrow;
+    } else {
+      table = DOMManager.tableBodyUpcoming;
+    }
+    for (let task of list) {
+      addTask(task, table);
+      addHiddenDescription(task, table);
+      // addChecklist()
+    }
+  }
 }
