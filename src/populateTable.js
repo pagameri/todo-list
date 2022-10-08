@@ -36,10 +36,4 @@ export function addHiddenDescription(element) {
 }
 
 
-export function sortListByDate(list) {
-  list.sort((a, b) => {
-    let x = new Date(a.fullDate).getTime();
-    let y = new Date(b.fullDate).getTime();
-    return x - y;
-  });
-}
+

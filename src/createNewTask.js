@@ -1,7 +1,6 @@
 import { DOMManager } from "./index.js";
 import { Task, lists } from "./list.js";
 import { projects } from "./projects.js";
-import { showList } from "./showSetList.js";
 import { addTaskToDueList } from "./updateLists.js";
 import _ from 'lodash';
 
@@ -22,19 +21,6 @@ export function createNewTask() {
   );
   lists.addToAllTasks(task);
 
-  // let taskProject = task.project.toLowerCase();
-  // let projectIndex;
-  // findProjectIndex(taskProject);
-
-  // function findProjectIndex(taskProject) {
-  //   projects.allProjects.forEach((project) => {
-  //   if (taskProject === project.projectName) {
-  //     projectIndex = _.findIndex(projects.allProjects, {'projectName': taskProject});
-  //   }
-  //   });
-  // }
-  
-  // projects.allProjects[projectIndex].elements.push(task);
   projects.addTaskToProjects(task);
 
   addTaskToDueList(task)
