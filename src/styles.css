@@ -192,6 +192,21 @@ th, td {
   border-bottom: 1px solid lightgray;
 }
 
+thead th:first-child,
+body tr td:first-child {
+  width: 20px;
+}
+
+thead th:nth-child(2),
+body tr td:nth-child(2) {
+  width: 50px;
+}
+
+thead th:last-child,
+body tr td:last-child {
+  width: 100px;
+}
+
 .hidden-row {
   display: none;
 }

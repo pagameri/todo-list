@@ -6,20 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+
 <body>
   <div class="container">
-  <header>
-    <div>ToDo'er</div>
-  </header>
+  
+    <header>
+      <div>ToDo'er</di>
+    </header>
+    
     <div class="side-bar">
+      
       <button type="button" id="add-new-task">Add New Task</button>
+      
       <ul class="due-groups">
-        <li class="today">Today</li>
-        <li class="upcoming">Upcoming</li>
-        <li class="anytime">Anytime</li>
-        <li class="done">Done</li>
-        <li class="past">Past</li>
+        <li id="today" class="list-selectors">Today</li>
+        <li id="next-week" class="list-selectors">Next 7 days</li>
+        <li id="no-date" class="list-selectors">No due date</li>
+        <li id="uncompleted" class="list-selectors">All uncompleted</li>
+        <li id="completed" class="list-selectors">Completed</li>
       </ul>
+
       <details class="side-details">
         <summary>Add New Project</summary>
         <form action="" name="new-project-form">
@@ -27,57 +33,24 @@
             <button type="submit" id="submit-new-project">Add Project</button>
         </form>
       </details>
+
       <ul class="projects">
-        <li class="general">General</li>
-        <li class="family">Family</li>
-        <li class="chores">Chores</li>
-        <li class="car">Car</li>
-        <li class="grocery">Grocery</li>
-        </ul>
+      </ul>
     </div>
+
+
     <div class="main-content">
-      <div class="view">
-        <div class="head-line">
-          <div>Today</div>
-          <div>View</div>
-        </div>
-        <div class="task-list">
-          <table>
-            <thead>
-              <th></th>
-            <th>Task</th>
-            <th>Time</th>
-            <th>Recurring</th>
-            <th>Priority</th>
-            <th>Label</th>
-          </thead>
-          <tbody id="table-today">            
-          </tbody>
-        </table>
-      </div>
-    </div>
-    <div class="view">
-      <div class="head-line">
-        <div>Tomorrow</div>
-      </div>
-      <div class="task-list">
-        <table>
-        <tbody id="table-tomorrow">
+      
+      <table>
+        <thead>
+          <th></th>
+          <th>Time</th>
+          <th>Task</th>
+          <th>Project</th>
+        </thead>
+        <tbody>            
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="view">
-    <div class="head-line">
-      <div>Upcoming</div>
-    </div>
-    <div class="task-list">
-      <table>
-      <tbody id="table-upcoming">
-      </tbody>
-    </table>
-  </div>
-</div>
     
   </div>
 </div>
@@ -91,10 +64,7 @@
       <div class="modal-content">
         <form action="" name="new-task-form">
             <input type="text" name="title" id="title" placeholder="Title">
-
-            <!-- <input type="color" name="color" id="color"> -->
-          </fieldset>
-          
+      
           <fieldset>
             <span>
               <label for="due-date">Due Date</label>
@@ -129,7 +99,6 @@
                 <option value="every-week">Every Week</option>
                 <option value="every-month">Every Month</option>
                 <option value="every-year">Every Year</option>
-                <!-- <option value="custom">Custom</option> -->
               </select>
             </span>
             
@@ -140,11 +109,6 @@
             </span>
              <span><input type="date" name="end-date" id="end-date"></span>
           </fieldset>
-
-          <!-- <fieldset>
-            <label for="checklist">Checklist</label>
-            <input type="text" name="checklist" id="checklist">
-          </fieldset> -->
            
            <fieldset>
              <span>
