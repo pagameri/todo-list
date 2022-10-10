@@ -1,4 +1,4 @@
-import { DOMManager } from './index.js';
+import { DOMManager } from './domManager.js';
 
 
 export function createRow(row, dataCount, className) {
@@ -8,11 +8,15 @@ export function createRow(row, dataCount, className) {
 }
 
 
-export function addCheckbox(row) {
+export function addCheckbox(row, completed) {
   let cell = row.insertCell();
   let checkbox = document.createElement('input');
   checkbox.setAttribute('type', 'checkbox');
   cell.appendChild(checkbox);
+  if (completed === true) {
+    checkbox.checked = true;
+    checkbox.classList.toggle('checked');
+  } 
 }
 
 
@@ -22,6 +26,9 @@ export function fillRow(row, values) {
     let text = document.createTextNode(value);
     cell.appendChild(text);
   });
+  if (values.completed) {
+    
+  }
 }
 
 

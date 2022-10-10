@@ -1,4 +1,4 @@
-import { DOMManager } from "./index.js";
+import { DOMManager } from './domManager.js';
 import _ from 'lodash';
 
 function toggleModal(modal) {

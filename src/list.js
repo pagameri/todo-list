@@ -5,7 +5,8 @@ import _ from 'lodash';
 
 
 export class Task {
-  constructor(title, dueDate, dueTime, alert, repeat, ends, endDate, priority, project, description, completed) {
+  constructor(id, title, dueDate, dueTime, alert, repeat, ends, endDate, priority, project, description, completed) {
+    this.id = id;
     this.title = title;
     this.dueDate = dueDate;
     this.dueTime = dueTime;
@@ -82,6 +83,15 @@ export let lists = {
     return this;
   },
   
+  setCompleted(taskId) {
+    let index = _.findIndex(this.allTasks, {'id': taskId});
+    if (this.allTasks[index].completed) {
+      this.allTasks[index].completed = false;
+    } else {
+      this.allTasks[index].completed = true;
+    }
+  },
+
   clearLists() {
     this.uncompletedTasks = [];
     this.todaysTasks = [];

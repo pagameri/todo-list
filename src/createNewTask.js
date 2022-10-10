@@ -1,12 +1,15 @@
-import { DOMManager } from "./index.js";
+import { DOMManager } from './domManager.js';
 import { Task, lists } from "./list.js";
 import { projects } from "./projects.js";
 import { addTaskToDueList } from "./updateLists.js";
 import _ from 'lodash';
+import { id } from 'date-fns/locale';
 
+let taskId = 0;
 
 export function createNewTask() {
   let task = new Task(
+    taskId,
     DOMManager.title.value,
     DOMManager.dueDate.value,
     DOMManager.dueTime.value,
@@ -23,6 +26,8 @@ export function createNewTask() {
 
   projects.addTaskToProjects(task);
 
-  addTaskToDueList(task)
+  addTaskToDueList(task);
+
+  taskId++;
 }
  

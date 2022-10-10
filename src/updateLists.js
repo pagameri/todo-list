@@ -25,11 +25,11 @@ export function addTaskToDueList(task) {
   } 
 }
 
-// TO USE: for deleting task
-// export function updateDueList() {
-//   lists.clearLists();
-//   lists.allTasks.forEach((task) => {
-//     addTaskToDueList(task);
-//   });
-// }
+
+export function updateDueList() {
+  lists.clearLists();
+  lists.allTasks.forEach((task) => {
+    addTaskToDueList(task);
+  });
+}
 

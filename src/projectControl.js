@@ -1,6 +1,7 @@
-import { DOMManager } from './index.js';
+import { DOMManager } from './domManager.js';
 import { addProjectToTaskModal } from './inputControl.js';
 import { projects } from './projects.js';
+import { lists } from './list.js';
 import _ from 'lodash';
 
 
@@ -26,7 +27,15 @@ export function updateProjectSideBar() {
 
 
 export function clearProjectLists() {
-  for (let projectElement of projects) {
-    projectElement.elements = [];
-  }
+  projects.allProjects.forEach((project) => {
+    project.elements = [];
+  });
+}
+
+
+export function updateProjects() {
+  clearProjectLists();
+  lists.allTasks.forEach((task) => {
+    addTaskToProjects(task);
+  })
 }

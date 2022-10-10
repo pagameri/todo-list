@@ -35,6 +35,20 @@ header {
   gap: 20px;
 }
 
+.active {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.checked {
+  pointer-events: none;
+  color: gray;
+}
+
+.checked td input {
+  pointer-events: all;
+}
+
 button {
   cursor: pointer;
   padding: 10px 20px;
