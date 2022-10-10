@@ -2,11 +2,12 @@ import './styles.css';
 import { DOMManager } from './domManager.js';
 import { toggleNewTaskModal, clearTaskModal, toggleTaskInfo, clearProjectInput ,closeSideDetailsTab } from './inputControl.js';
 import { createNewTask } from './createNewTask.js';
-import { createNewProject } from './projectControl.js'
-import { showSelectedList } from './showSetList.js';
+import { createNewProject } from './projects.js'
 import { startUp } from './startUpDefault.js';
-import { showActiveList } from './viewControl.js';
-import { markCompleted } from './markCompleted.js';
+import { lists } from './list.js';
+import { activeList, activateSelector, updateProjectSideBar } from './viewControl.js';
+import { displayList } from './displayList.js';
+import { sortTasksToDisplay } from './sortTasksToBeDisplayed.js';
 
 
 startUp();
@@ -27,11 +28,11 @@ DOMManager.submitNewTask.addEventListener('click', (e) => {
   createNewTask();
   clearTaskModal();
   toggleNewTaskModal();
-  showActiveList();
+  activateSelector(activeList);
+  sortTasksToDisplay(activeList);
+  displayList();
   DOMManager.expendableRows = document.querySelectorAll('.expendable');
   attachRowListener();
-  DOMManager.checkboxes = document.querySelectorAll('input[type="checkbox"]');
-  attachCheckboxListener();
 });
 
 
@@ -55,32 +56,16 @@ window.addEventListener('keydown', (e) => {
   }
 });
 
-// DOMManager.listSelectors.forEach((selector) => {
-//   selector.addEventListener('click', (e) => {
-//     showActiveList(e.target.id);
-//     DOMManager.expendableRows = document.querySelectorAll('.expendable');
-//     attachRowListener();
-//     DOMManager.checkboxes = document.querySelectorAll('input[type="checkbox"]');
-//     attachCheckboxListener();
-//   });
-// });
-
-
-// DOMManager.checkboxes.forEach((checkbox) => {
-//   checkbox.addEventListener('click', (e) => {
-//     checkbox.parentElement.parentElement.classList.toggle('checked');
-//   });
-// });
 
 export function attachRowListener() {
   DOMManager.expendableRows.forEach((row) => {
     row.addEventListener('click', (e) => {
-      console.log(e.target);
       if (e.target.tagName === 'TH') {
         console.log('its th'); // TODO: sort
       } else if (e.target.tagName === 'INPUT') {
-        let rowID = e.target.parentElement.parentElement.dataset.listId;
-        markCompleted(rowID);
+        let rowId = e.target.parentElement.parentElement.dataset.listId;
+        lists.toggleCompleted(rowId);
+        e.target.parentElement.parentElement.classList.toggle('checked');
       } else {
         let hiddenRow = e.target.parentElement.nextElementSibling;
         toggleTaskInfo(hiddenRow);
@@ -93,24 +78,11 @@ export function attachRowListener() {
 export function attachListSelectorListener() {
   DOMManager.listSelectors.forEach((selector) => {
     selector.addEventListener('click', (e) => {
-      showActiveList(e.target.id);
+      activateSelector(e.target.id);
+      sortTasksToDisplay(e.target.id);
+      displayList();
       DOMManager.expendableRows = document.querySelectorAll('.expendable');
       attachRowListener();
-      DOMManager.checkboxes = document.querySelectorAll('input[type="checkbox"]');
-      attachCheckboxListener();
-      DOMManager.checkboxes.forEach((checkbox) => {
-        if (checkbox.checked === true) {
-          checkbox.parentElement.parentElement.classList.toggle('checked');
-        }
-      });
     });
   });
-}
-
-export function attachCheckboxListener() {
-  DOMManager.checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('click', () => {
-        checkbox.parentElement.parentElement.classList.toggle('checked');
-    });
-  });
-}
+};

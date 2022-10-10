@@ -1,17 +1,17 @@
 import { DOMManager } from './domManager.js';
-import { projects, projectValues } from "./projects";
-import { updateProjectSideBar } from "./projectControl";
-import { attachListSelectorListener, attachRowListener, attachCheckboxListener } from "./index.js";
-import { showSelectedList } from "./showSetList";
+import { updateProjectSideBar } from "./viewControl.js";
+import { attachListSelectorListener, attachRowListener } from "./index.js";
+import { activateSelector } from './viewControl.js';
+import { displayList } from './displayList.js';
+import { sortTasksToDisplay } from './sortTasksToBeDisplayed.js';
+
 
 export function startUp() {
-  projectValues.forEach((value) => {
-    projects.addNewProject(value);
-  });
   updateProjectSideBar();
   DOMManager.listSelectors = document.querySelectorAll('.list-selectors');
   attachListSelectorListener();
-  showSelectedList('today');
+  activateSelector('today');
+  sortTasksToDisplay('today');
+  displayList();
   attachRowListener();
-  attachCheckboxListener();
 }

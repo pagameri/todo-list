@@ -21,14 +21,6 @@ export function toggleTaskInfo(row) {
   row.classList.toggle('hidden-row');
 }
 
-// TODO: remove project
-
-// function updateProjectsAtTaskModal() {
-//   DOMManager.selectProject.innerHTML = '';
-//   projects.allProjects.forEach((project) => {
-//     addProjectToTaskModal(project.projectName);
-//   });
-// }
 
 export function addProjectToTaskModal(project) {
   const option = document.createElement('option');
@@ -38,9 +30,11 @@ export function addProjectToTaskModal(project) {
   DOMManager.selectProject.appendChild(option);
 }
 
+
 export function clearProjectInput() {
   document.forms['new-project-form'].reset();
 }
+
 
 export function closeSideDetailsTab() {
   DOMManager.sidebarDetails.removeAttribute('open');

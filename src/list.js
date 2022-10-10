@@ -41,62 +41,25 @@ export class Task {
 
 export let lists = {
   allTasks: [],
-  uncompletedTasks: [],
-  todaysTasks: [],
-  nextWeeksTasks: [],
-  noDueDateTasks: [],
-  completedTasks: [],
-  pastTasks: [],
+  tasksToDisplay: [],
 
   addToAllTasks(task) {
     this.allTasks.push(task);
     return this;
   },
 
-  addToTodaysTasks(task) {
-    this.todaysTasks.push(task);
+  addToDisplayedTasks(task) {
+    this.tasksToDisplay.push(task);
     return this;
   },
 
-  addToNextWeeksTask(task) {
-    this.nextWeeksTasks.push(task);
-    return this;
-  },
-
-  addToNoDueDateTasks(task) {
-    this.noDueDateTasks.push(task);
-    return this;
-  },
-
-  addToUncompletedTasks(task) {
-    this.uncompletedTasks.push(task);
-    return this;
-  },
-
-  addToCompletedTasks(task) {
-    this.completedTasks.push(task);
-    return this;
-  },
-
-  addToPastTasks(task) {
-    this.pastTasks.push(task);
-    return this;
-  },
-  
-  setCompleted(taskId) {
-    let index = _.findIndex(this.allTasks, {'id': taskId});
-    if (this.allTasks[index].completed) {
-      this.allTasks[index].completed = false;
+  toggleCompleted(tableIndex) {
+    let taskId = this.tasksToDisplay[tableIndex].id;
+    let taskIndex = _.findIndex(this.allTasks, {'id': taskId});
+    if (this.allTasks[taskIndex].completed === true) {
+      this.allTasks[taskIndex].completed = false;
     } else {
-      this.allTasks[index].completed = true;
+      this.allTasks[taskIndex].completed = true;
     }
-  },
-
-  clearLists() {
-    this.uncompletedTasks = [];
-    this.todaysTasks = [];
-    this.nextWeeksTasks = [];
-    this.noDueDateTasks = [];
-    this.completedTasks = [];
   }
 }

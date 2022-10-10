@@ -14,7 +14,6 @@ export const DOMManager = (() => {
   const submitNewProject = document.querySelector('#submit-new-project');
   const tableBody = document.querySelector('tbody');
   let expendableRows = document.querySelectorAll('.expendable');
-  let checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
   // form input
   const title = document.querySelector('#title');
@@ -39,7 +38,7 @@ export const DOMManager = (() => {
   return {
     dueGroupSideBar, projectSideBar, sidebarDetails, newTaskBtn,
     newTaskModal, selectProject, inputProjectName, modalOverlay, closeNewTaskModal,
-    submitNewTask, submitNewProject, tableBody, expendableRows, checkboxes,
+    submitNewTask, submitNewProject, tableBody, expendableRows,
     // form
     title, dueDate, dueTime, alert, repeat,
     ends, endDate, priority, project, description,

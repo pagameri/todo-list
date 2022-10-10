@@ -1,14 +1,11 @@
 import { DOMManager } from './domManager.js';
-import { showSelectedList } from './showSetList.js';
+import { projectGroups } from './projects.js';
 
 
 export let activeList = 'today';
 
-export function showActiveList(list) {
+export function activateSelector(list) {
   DOMManager.listSelectors.forEach((selector => {
-    if (list === undefined) {
-      list = activeList;
-    }
     activeList = list;
     if (selector.classList.contains('active')) {
       selector.classList.toggle('active');
@@ -17,5 +14,16 @@ export function showActiveList(list) {
       selector.classList.toggle('active');
     }
   }));
-  showSelectedList(list);
+}
+
+
+export function updateProjectSideBar() {
+  DOMManager.projectSideBar.innerHTML = '';
+  projectGroups.forEach((group) => {
+    const li = document.createElement('li');
+    li.textContent = _.upperFirst(group);
+    li.setAttribute('id', group);
+    li.classList.add('list-selectors');
+    DOMManager.projectSideBar.appendChild(li);
+  });
 }

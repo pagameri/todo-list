@@ -1,5 +1,6 @@
-import _ from 'lodash';
-
+import { DOMManager } from './domManager.js';
+import { updateProjectSideBar } from './viewControl.js';
+import { addProjectToTaskModal } from './inputControl.js';
 
 export class Project {
   constructor(projectName, elements) {
@@ -8,33 +9,13 @@ export class Project {
   }
 }
 
-export let projectValues = ['general', 'family', 'chores', 'car', 'grocery'];
+export let projectGroups = ['general', 'family', 'chores', 'car', 'grocery'];
 
-
-export let projects = {
-  allProjects: [],
-
-  addNewProject(projectName) {
-    let newProject = new Project(projectName, []);
-    this.allProjects.push(newProject);
-    return this;
-  },
-
-  addTaskToProjects(task) {
-    let projectInTask = task.project.toLowerCase();
-    let projectIndex = findProjectIndex(projectInTask);
-    
-    projects.allProjects[projectIndex].elements.push(task);
-  }
+export function createNewProject() {
+  let newProjectName = DOMManager.inputProjectName.value;
+  newProjectName = newProjectName.toLowerCase();
+  projectGroups.push(newProjectName);
+  updateProjectSideBar();
+  addProjectToTaskModal(newProjectName);
 }
 
-
-export function findProjectIndex(projectToFind) {
-  let projectIndex;
-  projects.allProjects.forEach((project) => {
-    if (projectToFind === project.projectName) {
-      projectIndex = _.findIndex(projects.allProjects, {'projectName': projectToFind});
-    }
-  });
-  return projectIndex;
-}
