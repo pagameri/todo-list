@@ -40,13 +40,17 @@ header {
   font-size: 1.1rem;
 }
 
-.checked {
-  pointer-events: none;
-  color: gray;
-}
 
 .checked td input {
   pointer-events: all;
+}
+
+.checked {
+  pointer-events: none;
+  color: gray;
+  background-color: #F9F9F9;
+  text-decoration: line-through;
+  transition: background 0.2s;
 }
 
 button {
@@ -216,9 +220,14 @@ body tr td:nth-child(2) {
   width: 50px;
 }
 
+thead th:nth-child(4),
+body tr td:nth-child(4) {
+  width: 100px;
+}
+
 thead th:last-child,
 body tr td:last-child {
-  width: 100px;
+  width: 50px;
 }
 
 .hidden-row {

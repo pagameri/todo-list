@@ -1,7 +1,10 @@
 import { DOMManager } from "./domManager.js";
 import { lists } from "./list.js";
-
+import { stylePriority } from "./stylePriority.js";
+import Delete from './img/trash.svg';
+import Edit from './img/edit.svg';
  
+
 export function displayList() {
   let dataCount = 0;
   DOMManager.tableBody.innerHTML = '';
@@ -16,6 +19,7 @@ export function displayList() {
     createRow(row, dataCount);
     addCheckbox(row, task);
     fillRow(row, rowValues);
+    stylePriority(row, task);
     addHiddenDescription(task);
     dataCount++;
   });
@@ -55,6 +59,7 @@ function fillRow(row, values) {
     let text = document.createTextNode(value);
     cell.appendChild(text);
   });
+  addIcon(row, Delete, 'delete-btn');
 }
 
 
@@ -62,8 +67,19 @@ function addHiddenDescription(element) {
   let hiddenRow = DOMManager.tableBody.insertRow();
   hiddenRow.classList.add('hidden-row');
   hiddenRow.insertCell();
+  hiddenRow.insertCell();
   let hiddenCell = hiddenRow.insertCell();
-  hiddenCell.setAttribute('colspan', 5);
+  hiddenCell.setAttribute('colspan', 2);
   let hiddenText = document.createTextNode(element.description);
   hiddenCell.appendChild(hiddenText);
+  addIcon(hiddenRow, Edit, 'edit-btn');
+}
+
+
+function addIcon(row, Icon, className) {
+  let cell = row.insertCell();
+  const icon = new Image;
+  icon.src = Icon;
+  icon.classList.add(className);
+  cell.appendChild(icon);
 }

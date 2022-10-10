@@ -4,10 +4,12 @@ import { toggleNewTaskModal, clearTaskModal, toggleTaskInfo, clearProjectInput ,
 import { createNewTask } from './createNewTask.js';
 import { createNewProject } from './projects.js'
 import { startUp } from './startUpDefault.js';
-import { lists } from './list.js';
-import { activeList, activateSelector, updateProjectSideBar } from './viewControl.js';
+import { activeList, activateSelector } from './viewControl.js';
 import { displayList } from './displayList.js';
 import { sortTasksToDisplay } from './sortTasksToBeDisplayed.js';
+import { setCompleted } from './setCompleted.js';
+import { deleteTask } from './deleteTask.js';
+import { editTask } from './editTask.js';
 
 
 startUp();
@@ -63,9 +65,13 @@ export function attachRowListener() {
       if (e.target.tagName === 'TH') {
         console.log('its th'); // TODO: sort
       } else if (e.target.tagName === 'INPUT') {
-        let rowId = e.target.parentElement.parentElement.dataset.listId;
-        lists.toggleCompleted(rowId);
-        e.target.parentElement.parentElement.classList.toggle('checked');
+        setCompleted(e);
+      } else if (e.target.tagName === 'IMG') {
+        if (e.target.className === 'delete-btn') {
+          deleteTask(e);
+        } else {
+          editTask(e);
+        }
       } else {
         let hiddenRow = e.target.parentElement.nextElementSibling;
         toggleTaskInfo(hiddenRow);
