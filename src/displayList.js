@@ -3,16 +3,18 @@ import { lists } from "./list.js";
 import { stylePriority } from "./stylePriority.js";
 import Delete from './img/trash.svg';
 import Edit from './img/edit.svg';
+import { displayTaskCount } from "./counter.js";
+import { attachRowListener } from "./index.js";
  
 
 export function displayList() {
   let dataCount = 0;
   DOMManager.tableBody.innerHTML = '';
-
+  
   if (lists.tasksToDisplay.length > 1) {
     sortListByDate(lists.tasksToDisplay);
   }
-
+  
   lists.tasksToDisplay.forEach((task) => {
     let rowValues = [task.dueTime, task.title, task.project];
     let row = DOMManager.tableBody.insertRow();
@@ -23,6 +25,9 @@ export function displayList() {
     addHiddenDescription(task);
     dataCount++;
   });
+  displayTaskCount();
+  DOMManager.expendableRows = document.querySelectorAll('.expendable');
+  attachRowListener();
 }
 
 

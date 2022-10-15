@@ -9,6 +9,8 @@ function toggleModal(modal) {
 
 export function toggleNewTaskModal() {
   toggleModal(DOMManager.newTaskModal);
+  DOMManager.submitNewTask.style.display = 'block';
+  DOMManager.submitChangesBtn.style.display = 'none';
 }
 
 
@@ -38,4 +40,10 @@ export function clearProjectInput() {
 
 export function closeSideDetailsTab() {
   DOMManager.sidebarDetails.removeAttribute('open');
+}
+
+
+export function changeModalBtns() {
+  DOMManager.submitNewTask.style.display = 'none';
+  DOMManager.submitChangesBtn.style.display = 'block';
 }

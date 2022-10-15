@@ -11,9 +11,12 @@ export const DOMManager = (() => {
   const inputProjectName = document.querySelector('#project-name');
   const closeNewTaskModal = document.querySelector('#close-new-task');
   const submitNewTask = document.querySelector('#submit-new-task');
+  const submitChangesBtn = document.querySelector('#submit-task-changes');
   const submitNewProject = document.querySelector('#submit-new-project');
   const tableBody = document.querySelector('tbody');
-  let expendableRows = document.querySelectorAll('.expendable');
+  const expendableRows = document.querySelectorAll('.expendable');
+  const editBtns = document.querySelectorAll('.edit-btn');
+  const modalForm = document.querySelector('form[name="new-task-form"]');
 
   // form input
   const title = document.querySelector('#title');
@@ -30,19 +33,61 @@ export const DOMManager = (() => {
   // sidebar selectors
   const listSelectors = document.querySelectorAll('.list-selectors');
   const today = document.getElementById('today');
+  const todayCounter = document.getElementById('today-counter');
   const nextWeek = document.getElementById('next-week');
+  const nextWeekCounter = document.getElementById('next-week-counter');
   const noDueDate = document.getElementById('no-date');
+  const noDueDateCounter = document.getElementById('no-date-counter');
   const allUncompleted = document.getElementById('uncompleted');
+  const allUncompletedCounter = document.getElementById('uncompleted-counter');
   const completed = document.getElementById('completed');
+  const completedCounter = document.getElementById('completed-counter');
+  const projectsCounter = document.querySelector('.projects-counter');
+  const projectsCounters = document.querySelectorAll('.project-counter');
 
   return {
-    dueGroupSideBar, projectSideBar, sidebarDetails, newTaskBtn,
-    newTaskModal, selectProject, inputProjectName, modalOverlay, closeNewTaskModal,
-    submitNewTask, submitNewProject, tableBody, expendableRows,
+    dueGroupSideBar,
+    projectSideBar,
+    sidebarDetails,
+    newTaskBtn,
+    newTaskModal,
+    selectProject,
+    inputProjectName,
+    modalOverlay,
+    closeNewTaskModal,
+    submitNewTask,
+    submitChangesBtn, 
+    submitNewProject,
+    tableBody,
+    expendableRows,
+    editBtns,
+    modalForm,
+    
     // form
-    title, dueDate, dueTime, alert, repeat,
-    ends, endDate, priority, project, description,
+    title,
+    dueDate,
+    dueTime,
+    alert,
+    repeat,
+    ends,
+    endDate,
+    priority,
+    project,
+    description,
+    
     // sidebar selectors
-    listSelectors, today, nextWeek, noDueDate, allUncompleted, completed,
+    listSelectors,
+    today,
+    todayCounter,
+    nextWeek,
+    nextWeekCounter,
+    noDueDate,
+    noDueDateCounter,
+    allUncompleted,
+    allUncompletedCounter,
+    completed,
+    completedCounter,
+    projectsCounter,
+    projectsCounters,
   }
 })();

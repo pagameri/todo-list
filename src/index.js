@@ -10,6 +10,7 @@ import { sortTasksToDisplay } from './sortTasksToBeDisplayed.js';
 import { setCompleted } from './setCompleted.js';
 import { deleteTask } from './deleteTask.js';
 import { editTask } from './editTask.js';
+import { updateTaskValues } from './editTask.js'; 
 
 
 startUp();
@@ -33,9 +34,17 @@ DOMManager.submitNewTask.addEventListener('click', (e) => {
   activateSelector(activeList);
   sortTasksToDisplay(activeList);
   displayList();
-  DOMManager.expendableRows = document.querySelectorAll('.expendable');
-  attachRowListener();
 });
+
+
+DOMManager.submitChangesBtn.addEventListener('click', (e) => {
+  e.preventDefault();
+  updateTaskValues();
+  clearTaskModal();
+  toggleNewTaskModal();
+  sortTasksToDisplay(activeList);
+  displayList();
+})
 
 
 DOMManager.submitNewProject.addEventListener('click', (e) => {
@@ -43,8 +52,6 @@ DOMManager.submitNewProject.addEventListener('click', (e) => {
   createNewProject();
   clearProjectInput();
   closeSideDetailsTab();
-  DOMManager.listSelectors = document.querySelectorAll('.list-selectors');
-  attachListSelectorListener();
 });
 
 
@@ -66,18 +73,18 @@ export function attachRowListener() {
         console.log('its th'); // TODO: sort
       } else if (e.target.tagName === 'INPUT') {
         setCompleted(e);
+        sortTasksToDisplay(activeList);
+        displayList();
       } else if (e.target.tagName === 'IMG') {
-        if (e.target.className === 'delete-btn') {
           deleteTask(e);
-        } else {
-          editTask(e);
-        }
       } else {
         let hiddenRow = e.target.parentElement.nextElementSibling;
         toggleTaskInfo(hiddenRow);
+        DOMManager.editBtns = document.querySelectorAll('.edit-btn');
+        attachEditListener();
       }
     });
-  })
+  });
 };
 
 
@@ -87,8 +94,15 @@ export function attachListSelectorListener() {
       activateSelector(e.target.id);
       sortTasksToDisplay(e.target.id);
       displayList();
-      DOMManager.expendableRows = document.querySelectorAll('.expendable');
-      attachRowListener();
     });
   });
 };
+
+
+export function attachEditListener() {
+  DOMManager.editBtns.forEach((button) => {
+    button.addEventListener('click', (e) => {
+      editTask(e);
+    });
+  });
+}

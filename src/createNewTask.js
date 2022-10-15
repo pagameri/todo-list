@@ -1,7 +1,7 @@
 import { DOMManager } from './domManager.js';
 import { Task, lists } from "./list.js";
 
-let taskId = 0;
+export let taskId = 0;
 
 export function createNewTask() {
   let task = new Task(
@@ -23,3 +23,7 @@ export function createNewTask() {
   taskId++;
 }
  
+
+export function removeTaskIdIteration() {
+  taskId--;
+}

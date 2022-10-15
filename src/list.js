@@ -63,11 +63,12 @@ export let lists = {
     }
   },
 
+
   deleteTask(tableIndex) {
     console.log(this.allTasks);
     let taskId = this.tasksToDisplay[tableIndex].id;
     let taskIndex = _.findIndex(this.allTasks, {'id': taskId});
     this.allTasks.splice(taskIndex, 1);
     console.log(this.allTasks);
-  }
+  },
 }

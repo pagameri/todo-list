@@ -22,6 +22,17 @@ header {
   align-self: center;
   background-color: lightblue;
   padding: 25px 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#add-new-task {
+  background-image: url(./img/add-task.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: lightblue;
+  height: 30px;
+  width: 30px;
 }
 
 .side-bar {
@@ -29,10 +40,9 @@ header {
   padding: 20px 20px;
   cursor: pointer;
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: repeat(4, auto);
+  grid-template-columns: 1fr 50px;
+  grid-template-rows: repeat(3, auto);
   align-content: flex-start;
-  gap: 20px;
 }
 
 .active {
@@ -40,17 +50,42 @@ header {
   font-size: 1.1rem;
 }
 
-
 .checked td input {
   pointer-events: all;
 }
 
-.checked {
-  pointer-events: none;
-  color: gray;
-  background-color: #F9F9F9;
-  text-decoration: line-through;
-  transition: background 0.2s;
+#today::before {
+  background: url(./img/today.svg) no-repeat;
+}
+
+#next-week::before {
+  background: url(./img/week.svg) no-repeat;
+}
+
+#no-date::before {
+  background: url(./img/no-date.svg) no-repeat;
+}
+
+#uncompleted::before {
+  background: url(./img/uncompleted.svg) no-repeat;
+}
+
+#completed::before {
+  background: url(./img/completed.svg) no-repeat;
+}
+
+#today::before,
+#next-week::before ,
+#no-date::before, 
+#uncompleted::before,
+#completed::before {
+  content: '';
+  display: block;
+  background-size: contain;
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin: 0 6px 0 0;
 }
 
 button {
@@ -62,19 +97,21 @@ button {
   width: 140px;
 }
 
-#add-new-task {
-  grid-area: 1 / 1 / 2 / 3;
+.due-groups {
+  grid-area: 1/ 1 / 2 / 2;
+}
+
+.due-counter,
+.projects-counter {
   justify-self: end;
 }
 
-.due-groups {
-  grid-area: 2 / 1 / 3 / 2;
-}
 
 details {
-  grid-area: 3 / 1 / 4 / 3;
-  justify-self: end;
-  text-align: end;
+  grid-area: 2 / 1 / 3 / 3;
+  justify-self: center;
+  text-align: center;
+  margin: 20px 0 10px 0;
 }
 
 form[name="new-project-form"] {
@@ -82,12 +119,25 @@ form[name="new-project-form"] {
 }
 
 #project-name {
-  width: 200px;
+  width: 150px;
   margin-bottom: 10px;
 }
 
+.projects-counter {
+  grid-area: 3 / 2 / 4 / 3;
+}
+
 .projects {
-  grid-area: 4 / 1 / 5 / 2;
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+#submit-new-project {
+  background-image: url(./img/add-project.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: lightpink;
+  height: 30px;
+  width: 30px;
 }
 
 li {
@@ -122,6 +172,13 @@ li {
   align-items: center;
 }
 
+.checked {
+  pointer-events: none;
+  color: gray;
+  background-color: #F9F9F9;
+  text-decoration: line-through;
+  transition: background 0.2s;
+}
 
 #new-task-modal {
   padding: 25px;

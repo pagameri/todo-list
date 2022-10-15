@@ -11,12 +11,11 @@
   <div class="container">
   
     <header>
-      <div>ToDo'er</di>
+      <div>ToDo'er</div>
+      <button type="button" id="add-new-task"></button>
     </header>
     
     <div class="side-bar">
-      
-      <button type="button" id="add-new-task">Add New Task</button>
       
       <ul class="due-groups">
         <li id="today" class="list-selectors">Today</li>
@@ -26,16 +25,24 @@
         <li id="completed" class="list-selectors">Completed</li>
       </ul>
 
+      <ul class="due-counter">
+        <li class="list-counter" id="today-counter"></li>
+        <li class="list-counter" id="next-week-counter"></li>
+        <li class="list-counter" id="no-date-counter"></li>
+        <li class="list-counter" id="uncompleted-counter"></li>
+        <li class="list-counter" id="completed-counter"></li>
+      </ul>
+      
       <details class="side-details">
         <summary>Add New Project</summary>
-        <form action="" name="new-project-form">
-            <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" required>
-            <button type="submit" id="submit-new-project">Add Project</button>
+        <form action="" method="post" name="new-project-form">
+          <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" pattern=".{3,}" required>
+          <button type="submit" id="submit-new-project"></button>
         </form>
       </details>
 
-      <ul class="projects">
-      </ul>
+      <ul class="projects"></ul>
+      <ul class="projects-counter"></ul>
     </div>
 
 
@@ -140,6 +147,7 @@
            </fieldset>
 
           <button type="submit" id="submit-new-task">Add Task</button>
+          <button type="submit" id="submit-task-changes">Save Changes</button>
         </form>
       </div>
     </div>
