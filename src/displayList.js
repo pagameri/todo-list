@@ -5,6 +5,8 @@ import Delete from './img/trash.svg';
 import Edit from './img/edit.svg';
 import { displayTaskCount } from "./counter.js";
 import { attachRowListener } from "./index.js";
+import Alert from "./img/alarm1.svg";
+import Repeat from "./img/refresh-cw.svg";
  
 
 export function displayList() {
@@ -16,7 +18,7 @@ export function displayList() {
   }
   
   lists.tasksToDisplay.forEach((task) => {
-    let rowValues = [task.dueTime, task.title, task.project];
+    let rowValues = [task.title, task, task.project];
     let row = DOMManager.tableBody.insertRow();
     createRow(row, dataCount);
     addCheckbox(row, task);
@@ -60,12 +62,32 @@ function addCheckbox(row, task) {
 
 function fillRow(row, values) {
   values.forEach((value) => {
+    if (typeof value === 'object') {
+      let cell = row.insertCell();
+      if (value.time !== '') {
+        let time = document.createTextNode(value.dueTime);
+        cell.appendChild(time);
+      }
+      if (value.alert !== '') {
+        let alert = document.createElement('img');
+        alert.classList.add('alert');
+        cell.appendChild(alert);
+      }
+      if (value.repeat !== '') {
+        let repeat = document.createElement('img');
+        repeat.classList.add('repeat');
+        cell.appendChild(repeat);
+      }
+    }
     let cell = row.insertCell();
     let text = document.createTextNode(value);
     cell.appendChild(text);
   });
   addIcon(row, Delete, 'delete-btn');
 }
+
+
+
 
 
 function addHiddenDescription(element) {

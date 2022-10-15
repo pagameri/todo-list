@@ -36,7 +36,7 @@
       <details class="side-details">
         <summary>Add New Project</summary>
         <form action="" method="post" name="new-project-form">
-          <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" pattern=".{3,}" required>
+          <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" required>
           <button type="submit" id="submit-new-project"></button>
         </form>
       </details>
@@ -47,18 +47,17 @@
 
 
     <div class="main-content">
-      
-      <table>
-        <thead>
-          <th></th>
-          <th>Time</th>
-          <th>Task</th>
-          <th>Project</th>
-          <th></th>
-        </thead>
-        <tbody>            
-        </tbody>
-      </table>
+      <div class="task">
+          <div class="checkbox">X</div>
+          <div class="task">Task</div>
+          <div class="project">Project</div>
+          <details class="description-arrow">
+            <summary></summary>
+            <div>Description</div>
+          </details>
+          <div class="icons">Icons</div>
+      </div>
+
     
   </div>
 </div>
