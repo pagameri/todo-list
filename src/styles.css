@@ -180,7 +180,12 @@ li {
   transition: background 0.2s;
 }
 
-#new-task-modal {
+.delete-btn {
+  pointer-events: all;
+}
+
+#new-task-modal,
+#edit-task-modal {
   padding: 25px;
   position: fixed;
   top: 50%;
@@ -196,7 +201,8 @@ li {
   z-index: 1010;
 }
 
-#new-task-modal.closed {
+#new-task-modal.closed,
+#edit-task-modal.closed {
   display: none;
 }
 

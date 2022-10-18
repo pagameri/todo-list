@@ -1,28 +1,30 @@
-import { lists } from './list.js';
-import { projectGroups } from './projects.js';
-import { startOfToday, isToday, isPast, parseISO, addWeeks, isBefore } from "date-fns";
+import { lists } from './taskLists.js';
+import { projects } from './projectList.js';
+import { startOfToday, isToday, parseISO, addWeeks, isBefore } from "date-fns";
+
+
+export const today = startOfToday();
+export const weekFromToday = addWeeks(today, 1);
 
 
 export function sortTasksToDisplay(selectorId) {
-  let today = startOfToday();
-  let weekFromToday = addWeeks(today, 1);
   lists.tasksToDisplay = [];
 
   if (selectorId === 'today') {
     lists.allTasks.forEach((task) => {
-      if (isToday(parseISO(task.dueDate))) {
+      if (isToday(parseISO(task.dueDate)) && !task.completed) {
         lists.addToDisplayedTasks(task);
       }
     });
   } else if (selectorId === 'next-week') {
     lists.allTasks.forEach((task) => {
-      if (isBefore(parseISO(task.dueDate), weekFromToday)) {
+      if (isBefore(parseISO(task.dueDate), weekFromToday) && !task.completed) {
         lists.addToDisplayedTasks(task);
       } 
     });
   } else if (selectorId === 'no-date') {
     lists.allTasks.forEach((task) => {
-      if (task.dueDate === '') {
+      if (task.dueDate === '' && !task.completed) {
         lists.addToDisplayedTasks(task);
       }
     });
@@ -39,10 +41,10 @@ export function sortTasksToDisplay(selectorId) {
       }
     });
   } else {
-    projectGroups.forEach((group) => {
-      if (group === selectorId) {
+    projects.allProjects.forEach((project) => {
+      if (project.projectName === selectorId) {
         lists.allTasks.forEach((task) => {
-          if (task.project.toLowerCase() === selectorId) {
+          if (task.project.toLowerCase() === selectorId && !task.completed) {
             lists.addToDisplayedTasks(task);
           }
         });

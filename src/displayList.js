@@ -1,14 +1,13 @@
+// import * as DOMManager from './domManager.js';
 import { DOMManager } from "./domManager.js";
-import { lists } from "./list.js";
+import { lists } from "./taskLists.js";
 import { stylePriority } from "./stylePriority.js";
 import Delete from './img/trash.svg';
 import Edit from './img/edit.svg';
-import { displayTaskCount } from "./counter.js";
 import { attachRowListener } from "./index.js";
  
 
 export function displayList() {
-  let dataCount = 0;
   DOMManager.tableBody.innerHTML = '';
   
   if (lists.tasksToDisplay.length > 1) {
@@ -18,14 +17,12 @@ export function displayList() {
   lists.tasksToDisplay.forEach((task) => {
     let rowValues = [task.dueTime, task.title, task.project];
     let row = DOMManager.tableBody.insertRow();
-    createRow(row, dataCount);
+    createRow(row, task.id);
     addCheckbox(row, task);
     fillRow(row, rowValues);
     stylePriority(row, task);
     addHiddenDescription(task);
-    dataCount++;
   });
-  displayTaskCount();
   DOMManager.expendableRows = document.querySelectorAll('.expendable');
   attachRowListener();
 }
@@ -40,8 +37,8 @@ function sortListByDate(list) {
 }
 
 
-function createRow(row, dataCount) {
-  row.dataset.listId = dataCount;
+function createRow(row, taskId) {
+  row.dataset.listId = taskId;
   row.classList.add('expendable');
 }
 
