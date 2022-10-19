@@ -17,6 +17,7 @@ export const DOMManager = (() => {
   const expendableRows = document.querySelectorAll('.expendable');
   const editBtns = document.querySelectorAll('.edit-btn');
   const modalForm = document.querySelector('form[name="new-task-form"]');
+  const mainContent = document.querySelector('.main-content');
 
   // form input
   const title = document.querySelector('#title');
@@ -45,6 +46,13 @@ export const DOMManager = (() => {
   const projectsCounter = document.querySelector('.projects-counter');
   const projectsCounters = document.querySelectorAll('.project-counter');
 
+  // task cards
+  const taskCards = document.querySelectorAll('.task-card');
+  // const taskInfos = document.querySelectorAll('.task-info');
+  // const checkboxes = document.
+
+
+
   return {
     dueGroupSideBar,
     projectSideBar,
@@ -62,7 +70,8 @@ export const DOMManager = (() => {
     expendableRows,
     editBtns,
     modalForm,
-    
+    mainContent,
+
     // form
     title,
     dueDate,
@@ -89,5 +98,8 @@ export const DOMManager = (() => {
     completedCounter,
     projectsCounter,
     projectsCounters,
+
+    // task cards
+    taskCards,
   }
 })();

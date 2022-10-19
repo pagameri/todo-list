@@ -7,29 +7,29 @@ import { displayTaskCount } from "./counter.js";
 import { attachRowListener } from "./index.js";
 import Alert from "./img/alarm1.svg";
 import Repeat from "./img/refresh-cw.svg";
- 
+import { createTaskCard, createTaskInfo, fillTaskInfo, createTaskControl,  fillTaskControl, createDescription } from "./createElement.js";
+
+
 
 export function displayList() {
   let dataCount = 0;
-  DOMManager.tableBody.innerHTML = '';
+  DOMManager.mainContent.innerHTML = '';
   
   if (lists.tasksToDisplay.length > 1) {
     sortListByDate(lists.tasksToDisplay);
   }
   
   lists.tasksToDisplay.forEach((task) => {
-    let rowValues = [task.title, task, task.project];
-    let row = DOMManager.tableBody.insertRow();
-    createRow(row, dataCount);
-    addCheckbox(row, task);
-    fillRow(row, rowValues);
-    stylePriority(row, task);
-    addHiddenDescription(task);
-    dataCount++;
+    createTaskCard();
+    createTaskInfo();
+    fillTaskInfo(task);
+    createTaskControl();
+    fillTaskControl(task);
+    createDescription();
   });
   displayTaskCount();
-  DOMManager.expendableRows = document.querySelectorAll('.expendable');
-  attachRowListener();
+  DOMManager.taskCards = document.querySelectorAll('.task-card');
+  attachCardListener();
 }
 
 
