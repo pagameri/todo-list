@@ -1,46 +1,39 @@
+// import * as DOMManager from './domManager.js';
 import { DOMManager } from "./domManager.js";
-import { lists } from "./list.js";
-import { toggleNewTaskModal } from "./inputControl.js";
+import { lists } from "./taskLists.js";
 import _ from "lodash";
-import { changeModalBtns } from "./inputControl.js";
-import { createNewTask } from "./createNewTask.js";
-import { removeTaskIdIteration } from "./createNewTask.js";
 
 
-let taskIndexToEdit;
+export let taskIndex;
 
 
-export function editTask(event) {
-  toggleNewTaskModal();
-  console.log(DOMManager.modalForm);
-  let rowId = event.target.parentElement.parentElement.previousElementSibling.dataset.listId;
-  let id = lists.tasksToDisplay[rowId].id;
-  let taskIndex = _.findIndex(lists.allTasks, {'id': id});
-  taskIndexToEdit = taskIndex;
-  populateModal(taskIndex);
-  changeModalBtns();
+
+
+export function editTask(id) {
+  const title = DOMManager.titleEdit.value;
+  const dueDate = DOMManager.dueDateEdit.value;
+  const priority = DOMManager.priorityEdit.value;
+  const project = DOMManager.projectEdit.value;
+  const description = DOMManager.descriptionEdit.value;
+  
+  lists.editTitle(id, title);
+  lists.editDueDate(id, dueDate);
+  lists.editPriority(id, priority);
+  lists.editProject(id, project);
+  lists.editDescription(id, description);
 }
 
 
-function  populateModal(index) {
-  let task = lists.allTasks[index];
-  DOMManager.title.value = task.title;
-  DOMManager.dueDate.value = task.dueDate;
-  DOMManager.dueTime.value = task.dueTime;
-  DOMManager.alert.value = task.alert;
-  DOMManager.repeat.value = task.repeat;
-  DOMManager.ends.value = task.ends;
-  DOMManager.endDate.value = task.endDate;
-  DOMManager.priority.value = task.priority;
-  DOMManager.project.value = task.project;
-  DOMManager.description.value = task.description;
+
+export function populateModal(index) {
+  DOMManager.titleEdit.value = lists.allTasks[index].title;
+  DOMManager.dueDateEdit.value = lists.allTasks[index].dueDate;
+  DOMManager.priorityEdit.value = lists.allTasks[index].priority;
+  DOMManager.projectEdit.value = lists.allTasks[index].project;
+  DOMManager.descriptionEdit.value = lists.allTasks[index].description;
 }
 
 
-export function updateTaskValues() {
-  createNewTask();
-  lists.allTasks.splice(taskIndexToEdit, 1);
-  lists.allTasks[lists.allTasks.length - 1].id = taskIndexToEdit;
-  console.log(lists.allTasks)
-  removeTaskIdIteration();
+export function setTaskToBeEdited(index) {
+  taskIndex = index;
 }

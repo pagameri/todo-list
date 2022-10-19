@@ -1,5 +1,4 @@
 
-
 export const DOMManager = (() => {
   const dueGroupSideBar = document.querySelector('.due-groups');
   const projectSideBar = document.querySelector('.projects');
@@ -7,29 +6,37 @@ export const DOMManager = (() => {
   const modalOverlay = document.querySelector('.modal-overlay');
   const newTaskBtn = document.querySelector('#add-new-task');
   const newTaskModal = document.querySelector('#new-task-modal');
+  const editTaskModal = document.querySelector('#edit-task-modal');
   const selectProject = document.querySelector('#project');
-  const inputProjectName = document.querySelector('#project-name');
+  const projectName = document.querySelector('#project-name');
   const closeNewTaskModal = document.querySelector('#close-new-task');
+  const closeEditTaskModal = document.querySelector('#close-edit-task');
   const submitNewTask = document.querySelector('#submit-new-task');
-  const submitChangesBtn = document.querySelector('#submit-task-changes');
+  const submitChangesBtn = document.querySelector('#submit-edit-task');
   const submitNewProject = document.querySelector('#submit-new-project');
   const tableBody = document.querySelector('tbody');
   const expendableRows = document.querySelectorAll('.expendable');
   const editBtns = document.querySelectorAll('.edit-btn');
   const modalForm = document.querySelector('form[name="new-task-form"]');
   const mainContent = document.querySelector('.main-content');
+  const newTaskModalForm = document.querySelector('form[name="new-task-form"]');
+  const editTaskModalForm = document.querySelector('form[name="edit-task-form"]');
+  const newProjectForm = document.querySelector('form[name="new-project-form"]');
+
 
   // form input
-  const title = document.querySelector('#title');
-  const dueDate = document.querySelector('#due-date');
-  const dueTime = document.querySelector('#due-time');
-  const alert = document.querySelector('#alert');
-  const repeat = document.querySelector('#repeat');
-  const ends = document.querySelector('#ends');
-  const endDate = document.querySelector('#end-date');
-  const priority = document.querySelector('#priority');
-  const project = document.querySelector('#project');
-  const description = document.querySelector('#description');
+  const title = document.querySelector('#title-new');
+  const dueDate = document.querySelector('#due-date-new');
+  const dueTime = document.querySelector('#due-time-new');
+  const priority = document.querySelector('#priority-new');
+  const project = document.querySelector('#project-new');
+  const description = document.querySelector('#description-new');
+  const titleEdit = document.querySelector('#title-edit');
+  const dueDateEdit = document.querySelector('#due-date-edit');
+  const dueTimeEdit = document.querySelector('#due-time-edit');
+  const priorityEdit = document.querySelector('#priority-edit');
+  const projectEdit = document.querySelector('#project-edit');
+  const descriptionEdit = document.querySelector('#description-edit');
 
   // sidebar selectors
   const listSelectors = document.querySelectorAll('.list-selectors');
@@ -44,7 +51,7 @@ export const DOMManager = (() => {
   const completed = document.getElementById('completed');
   const completedCounter = document.getElementById('completed-counter');
   const projectsCounter = document.querySelector('.projects-counter');
-  const projectsCounters = document.querySelectorAll('.project-counter');
+  const projectsCounterLis = document.querySelectorAll('.project-counter');
 
   // task cards
   const taskCards = document.querySelectorAll('.task-card');
@@ -57,14 +64,16 @@ export const DOMManager = (() => {
     dueGroupSideBar,
     projectSideBar,
     sidebarDetails,
+    modalOverlay,
     newTaskBtn,
     newTaskModal,
+    editTaskModal,
     selectProject,
-    inputProjectName,
-    modalOverlay,
+    projectName,
     closeNewTaskModal,
+    closeEditTaskModal,
     submitNewTask,
-    submitChangesBtn, 
+    submitChangesBtn,
     submitNewProject,
     tableBody,
     expendableRows,
@@ -73,17 +82,25 @@ export const DOMManager = (() => {
     mainContent,
 
     // form
+    newTaskModalForm,
+    editTaskModalForm,
+    newProjectForm,
+
+
+    // form input
     title,
     dueDate,
     dueTime,
-    alert,
-    repeat,
-    ends,
-    endDate,
     priority,
     project,
     description,
-    
+    titleEdit,
+    dueDateEdit,
+    dueTimeEdit,
+    priorityEdit,
+    projectEdit,
+    descriptionEdit,
+
     // sidebar selectors
     listSelectors,
     today,
@@ -101,5 +118,6 @@ export const DOMManager = (() => {
 
     // task cards
     taskCards,
+    projectsCounterLis,
   }
-})();
+})()

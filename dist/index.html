@@ -74,83 +74,102 @@
       </div>
       <div class="modal-content">
         <form action="" name="new-task-form">
-            <input type="text" name="title" id="title" placeholder="Title">
+            <input type="text" name="title" id="title-new" placeholder="Title">
       
           <fieldset>
             <span>
-              <label for="due-date">Due Date</label>
-              <!-- use toggle option?? -->
-              <input type="date" name="due-date" id="due-date">
+              <label for="due-date-new">Due Date</label>
+              <input type="date" name="due-date-new" id="due-date-new">
             </span>
-
             <span>
-              <label for="due-time">Time</label>
-               <!-- use toggle option?? -->
-              <input type="time" name="due-time" id="due-time">
+              <label for="due-time-new">Time</label>
+              <input type="time" name="due-time-new" id="due-time-new">
             </span>
-
-            <span>
-              <label for="alert">Alert</label>
-              <select name="alert" id="alert">
-                <option value="none" default>None</option>
-                <option value="9:00-on-day">On day of task (09:00)</option>
-                <option value="1-day-before">1 day before (09:00)</option>
-                <option value="2-days-before">2 days before (09:00)</option>
-                <option value="1-week-before">1 week before (09:00)</option>
-              </select>
-            </span>
-          </fieldset>
-
-          <fieldset>
-            <span>
-              <label for="repeat">Repeat</label>
-              <select name="repeat" id="repeat">
-                <option value="none" default>None</option>
-                <option value="every-day">Every Day</option>
-                <option value="every-week">Every Week</option>
-                <option value="every-month">Every Month</option>
-                <option value="every-year">Every Year</option>
-              </select>
-            </span>
-            
-            <span>
-              <label for="ends">Ends</label>
-               <!-- use toggle option?? -->
-               <input type="checkbox" name="ends" id="ends">
-            </span>
-             <span><input type="date" name="end-date" id="end-date"></span>
           </fieldset>
            
-           <fieldset>
-             <span>
-               <label for="priority">Priority</label>
-               <select name="priority" id="priority">
-                <option value="none">None</option>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-               </select>
-             </span>
+          <fieldset>
+            <span>
+              <label for="priority-new">Priority</label>
+              <select name="priority-new" id="priority-new">
+              <option value="none">None</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              </select>
+            </span>
 
-             <span>
-               <label for="project">Project</label>
-               <select name="project" id="project">
-                <option value="General">General</option>
-                <option value="Family">Family</option>
-                <option value="Chores">Chores</option>
-                <option value="Car">Car</option>
-                <option value="Grocery">Grocery</option>
-               </select>
-             </span>
+            <span>
+              <label for="project-new">Project</label>
+              <select name="project-new" id="project-new">
+                <option value="general">General</option>
+                <option value="family">Family</option>
+                <option value="chores">Chores</option>
+                <option value="car">Car</option>
+                <option value="grocery">Grocery</option>
+              </select>
+            </span>
 
-             <span>
-               <label for="description">Description</label>
-                <textarea name="description" id="description" rows="4" cols="50"></textarea>
-             </span>
-           </fieldset>
+            <span>
+              <label for="description-new">Description</label>
+              <textarea name="description-new" id="description-new" rows="4" cols="50"></textarea>
+            </span>
+          </fieldset>
 
           <button type="submit" id="submit-new-task">Add Task</button>
-          <button type="submit" id="submit-task-changes">Save Changes</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div>
+    <div id="edit-task-modal" class="modal closed">
+      <div class="modal-header">
+        <span id="close-edit-task" class="close-button">&times;</span>
+        <div>Edit Task</div>
+      </div>
+      <div class="modal-content">
+        <form action="" name="edit-task-form">
+            <input type="text" name="title" id="title-edit" placeholder="Title">
+      
+          <fieldset>
+            <span>
+              <label for="due-date-edit">Due Date</label>
+              <input type="date" name="due-date-edit" id="due-date-edit">
+            </span>
+            <span>
+              <label for="due-time-edit">Time</label>
+              <input type="time" name="due-time-edit" id="due-time-edit">
+            </span>
+          </fieldset>
+           
+          <fieldset>
+            <span>
+              <label for="priority-edit">Priority</label>
+              <select name="priority-edit" id="priority-edit">
+              <option value="none">None</option>
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+              </select>
+            </span>
+
+            <span>
+              <label for="project-edit">Project</label>
+              <select name="project-edit" id="project-edit">
+              <option value="general">General</option>
+              <option value="family">Family</option>
+              <option value="chores">Chores</option>
+              <option value="car">Car</option>
+              <option value="grocery">Grocery</option>
+              </select>
+            </span>
+
+            <span>
+              <label for="description-edit">Description</label>
+              <textarea name="description-edit" id="description-edit" rows="4" cols="50"></textarea>
+            </span>
+          </fieldset>
+
+          <button type="submit" id="submit-edit-task">Save Changes</button>
         </form>
       </div>
     </div>

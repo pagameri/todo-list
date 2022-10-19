@@ -1,9 +1,9 @@
+// import * as DOMManager from './domManager.js';
 import { DOMManager } from "./domManager.js";
-import { lists } from "./list.js";
+import { lists } from "./taskLists.js";
 import { stylePriority } from "./stylePriority.js";
 import Delete from './img/trash.svg';
 import Edit from './img/edit.svg';
-import { displayTaskCount } from "./counter.js";
 import { attachRowListener } from "./index.js";
 import Alert from "./img/alarm1.svg";
 import Repeat from "./img/refresh-cw.svg";
@@ -42,8 +42,8 @@ function sortListByDate(list) {
 }
 
 
-function createRow(row, dataCount) {
-  row.dataset.listId = dataCount;
+function createRow(row, taskId) {
+  row.dataset.listId = taskId;
   row.classList.add('expendable');
 }
 
