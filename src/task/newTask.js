@@ -1,6 +1,6 @@
 // import * as DOMManager from './domManager.js';
-import { DOMManager } from "./domManager.js";
-import Task from './class/task.js';
+import { DOMManager } from "../domManager.js";
+import Task from '../class/task.js';
 import { lists } from "./taskLists.js";
 
 
@@ -18,6 +18,7 @@ export function addNewTaskToList() {
   );
   lists.addToAllTasks(task);
 }
+
 
 export function iterateTaskId() {
   taskId++;

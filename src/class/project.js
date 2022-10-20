@@ -2,7 +2,6 @@ export default class Project {
   constructor(projectId, projectName) {
     this._projectId = projectId;
     this._projectName = projectName;
-    // this._elements = [];
   }
 
   get projectId() {
@@ -24,14 +23,4 @@ export default class Project {
       this._projectName = value;
     }
   }
-
-  // get elements() {
-  //   return this._elements
-  // }
-  
-  // set elements(value) {
-  //   if (value) {
-  //     this._elements.push(value);
-  //   }
-  // }
 }

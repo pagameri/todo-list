@@ -1,21 +1,19 @@
-import './styles.css';
+import './style/styles.css';
 // import * as DOMManager from './domManager.js';
 import { DOMManager } from "./domManager.js";
-import { toggleModal, toggleTaskInfo, closeDetails, clearForm, updateTaskModalProjectValues } from './inputControl.js';
-import { addNewTaskToList, iterateTaskId } from './newTask.js';
-import { createNewProject } from './class/project.js'
-import { startUp } from './startUpDefault.js';
-import { activeList, activateSelector, setActiveList, updateProjectSideBar } from './viewControl.js';
-import { displayList } from './displayList.js';
-import { sortTasksToDisplay } from './sortTasksToBeDisplayed.js';
-import { setCompleted } from './setCompleted.js';
-import { deleteTask } from './deleteTask.js';
-import { editTask, findIndex, setTaskToBeEdited } from './editTask.js';
-import { updateTaskValues } from './editTask.js'; 
-import { lists } from './taskLists.js';
-import { displayProjectCount, displayTaskCount } from "./counter.js";
-import { addNewProjectToList, iterateProjectId } from './newProject';
-import { taskIndex, populateModal } from "./editTask.js";
+import { toggleModal, closeDetails, clearForm, updateTaskModalProjectValues } from './display/inputControl.js';
+import { addNewTaskToList, iterateTaskId } from './task/newTask.js';
+import { startUp } from './display/startUpDefault.js';
+import { activeList, activateSelector, setActiveList, updateProjectSideBar } from './display/viewControl.js';
+import { displayList } from './display/displayList.js';
+import { sortTasksToDisplay } from './display/sortTasksToBeDisplayed.js';
+import { setCompleted } from './task/setCompleted.js';
+import { deleteTask } from './task/deleteTask.js';
+import { editTask, setTaskToBeEdited, taskIndex, populateModal  } from './task/editTask.js';
+import { lists } from './task/taskLists.js';
+import { displayProjectCount, displayTaskCount } from "./display/counter.js";
+import { addNewProjectToList, iterateProjectId } from './projects/newProject';
+
 
 
 startUp();
@@ -29,6 +27,11 @@ DOMManager.newTaskBtn.addEventListener('click', () => {
 DOMManager.closeNewTaskModal.addEventListener('click', () => {
   toggleModal(DOMManager.newTaskModal);
 });
+
+
+DOMManager.closeEditTaskModal.addEventListener('click', ()=> {
+  toggleModal(DOMManager.editTaskModal);
+})
 
 
 DOMManager.submitNewTask.addEventListener('click', (e) => {
@@ -81,30 +84,34 @@ window.addEventListener('keydown', (e) => {
 });
 
 
-export function attachRowListener() {
-  DOMManager.expendableRows.forEach((row) => {
-    row.addEventListener('click', (e) => {
-      if (e.target.tagName === 'TH') {
-        console.log('its th'); // TODO: sort
+export function attachCardListener() {
+  DOMManager.taskCards.forEach((card) => {
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('more-info')) {
+        e.target.parentElement.parentElement.nextElementSibling.classList.toggle('closed'); /* TODO: find a way for DOMManager version to work */
+        e.target.classList.toggle('expand');
+        e.target.parentElement.parentElement.classList.toggle('expand');
       } else if (e.target.tagName === 'INPUT') {
         setCompleted(e);
         sortTasksToDisplay(activeList);
         displayList();
         displayTaskCount();
         displayProjectCount();
-      } else if (e.target.tagName === 'IMG') {
-          deleteTask(e);
-          displayTaskCount();
-          displayProjectCount();
-      } else {
-        let hiddenRow = e.target.parentElement.nextElementSibling;
-        toggleTaskInfo(hiddenRow);
-        DOMManager.editBtns = document.querySelectorAll('.edit-btn');
-        attachEditListener();
+      } else if (e.target.classList.contains('edit-project')) {
+        toggleModal(DOMManager.editTaskModal);
+        const taskId = e.target.dataset.id;
+        setTaskToBeEdited(taskId);
+        populateModal(taskId);
+
+      } else if (e.target.classList.contains('delete-project')) {
+        deleteTask(e);
+        displayTaskCount();
+        displayProjectCount();
       }
+
     });
   });
-};
+}
 
 
 export function attachListSelectorListener() {
@@ -122,7 +129,7 @@ export function attachEditListener() {
   DOMManager.editBtns.forEach((button) => {
     button.addEventListener('click', (e) => {
       toggleModal(DOMManager.editTaskModal);
-      const taskId = e.target.parentElement.parentElement.previousElementSibling.dataset.listId;
+      const taskId = e.target.dataset.listId;
       setTaskToBeEdited(taskId);
       populateModal(taskId);
     });

@@ -1,0 +1,391 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  background-color: lightskyblue;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(250px, 300px) 1fr;
+  grid-template-rows: 60px 1fr;
+}
+
+header {
+  font-size: 2rem;
+  grid-area: 1 / 1 / 2 / 3;
+  align-self: center;
+  background-color: #0c4a6e;
+  padding: 25px 25px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#add-new-task {
+  background-image: url(../img/add-task.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: inherit;
+  height: 30px;
+  width: 30px;
+  align-self: center;
+}
+
+/* Side bar */
+.side-bar {
+  background-color: #7dd3fc;
+  padding: 25px 25px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr 50px;
+  align-content: start;
+}
+
+li {
+  list-style: none;
+  padding: 5px 0;
+}
+
+.active {
+  font-weight: bold;
+}
+
+#today::before {
+  background: url(../img/today.svg) no-repeat;
+}
+
+#next-week::before {
+  background: url(../img/week.svg) no-repeat;
+}
+
+#no-date::before {
+  background: url(../img/no-date.svg) no-repeat;
+}
+
+#uncompleted::before {
+  background: url(../img/uncompleted.svg) no-repeat;
+}
+
+#completed::before {
+  background: url(../img/completed.svg) no-repeat;
+}
+
+#today::before,
+#next-week::before ,
+#no-date::before, 
+#uncompleted::before,
+#completed::before {
+  content: '';
+  display: block;
+  background-size: contain;
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin: 0 6px 0 0;
+}
+
+/* Due groups */
+.due-groups {
+  grid-area: 1/ 1 / 2 / 2;
+}
+
+.due-counter,
+.projects-counter {
+  justify-self: end;
+}
+
+details {
+  grid-area: 2 / 1 / 3 / 3;
+  justify-self: center;
+  text-align: center;
+  margin: 20px 0 10px 0;
+}
+
+form[name="new-project-form"] {
+  margin: 10px 0;
+}
+
+#project-name {
+  width: 150px;
+  margin-bottom: 10px;
+}
+
+.projects-counter {
+  grid-area: 3 / 2 / 4 / 3;
+}
+
+.projects {
+  grid-area: 3 / 1 / 4 / 2;
+}
+
+#submit-new-project {
+  background-image: url(../img/add-project.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: inherit;
+  height: 30px;
+  width: 30px;
+}
+
+button {
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  height: 40px;
+  width: 140px;
+  background-color: #bae6fd;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+button:hover {
+  background-color: #e0f2fe;
+}
+
+/* MAIN-CONTENT */
+.main-content {
+  background-color: #f0f9ff; 
+  padding: 25px 25px;
+}
+
+.task-card {
+  margin-bottom: 10px;
+}
+
+/* Main-row */
+.main-row {
+  display: grid;
+  grid-template-columns: 50px 1fr 150px;
+  grid-template-rows: 50px;
+  background-color: #bae6fd;
+  font-size: 1.2rem;
+  border-radius: 10px;
+}
+
+.main-row.expand {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.task-info,
+.task-control  {
+  padding: 10px;
+  align-content: center;
+}
+
+.task-info {
+  grid-area: 1 / 2 / 2 / 3;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  
+}
+
+input[type="checkbox"] {
+  grid-area: 1 / 1 / 2 / 2;
+  align-self: center;
+}
+
+.checked {
+  pointer-events: none;
+  color: gray;
+  background-color: #F9F9F9;
+  text-decoration: line-through;
+  transition: background 0.2s;
+}
+
+.checked input {
+  pointer-events: all;
+}
+
+/* .task-info */
+
+.more-info {
+  background-image: url(../img/expand_more.svg);
+}
+
+.more-info.expand {
+  background-image: url(../img/expand_less.svg);
+}
+
+.edit-project {
+  background-image: url(../img/edit2.svg);
+}
+
+.delete-project {
+  background-image: url(../img/trash.svg);
+}
+
+/* extras */
+.extras {
+  justify-self: end;
+}
+
+.time {
+  color: green;
+}
+
+.task-control {
+  grid-area: 1 / 3 / 2 / 4;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.task-control button {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-color: inherit;
+  height: 30px;
+  width: 30px;
+}
+
+/* Description-container */
+.description-container {
+  display: grid;
+  grid-template-columns: 50px 4fr 1fr 150px;
+  grid-template-rows: minmax(30px, auto);
+  align-items: center;
+  background-color: #e0f2fe;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+.description-container.closed {
+  display: none;
+}
+
+.description {
+  grid-area: 1 / 2 / 2 / 3;
+}
+
+.project { 
+  grid-area: 1 / 3 / 2 / 4;
+  justify-self: end;
+}
+
+.delete-btn {
+  pointer-events: all;
+}
+
+
+/* Modals */
+#new-task-modal,
+#edit-task-modal {
+  padding: 25px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 500px;
+  max-width: 100%;
+  max-height: 100%;
+  opacity: 1;
+  display: block;
+  background-color: #0ea5e9;
+  z-index: 1010;
+}
+
+#new-task-modal.closed,
+#edit-task-modal.closed {
+  display: none;
+}
+
+.modal-overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.modal-overlay.closed {
+  display: none;
+}
+
+.modal-header {
+  font-size: 2rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-header div {
+  align-self: center;
+}
+
+.close-button {
+  cursor: pointer;
+  /* float: right; */
+  font-size: 3rem;
+  color: #0c4a6e;
+  font-weight: bold;
+  width: 3rem;
+  line-height: 3rem;
+  text-align: center;
+  padding: 0;
+}
+
+form {
+  margin: 25px;
+  font-size: 1.23rem;
+}
+
+form[name="new-task-form"],
+form[name="edit-task-form"] {
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset {
+  margin-bottom: 10px;
+  padding: 10px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+fieldset span {
+ display: flex;
+}
+
+label {
+  width: 120px;
+}
+
+input,
+select,
+textarea {
+  font-size: 1rem;
+  padding: 0.2rem;
+  border-radius: 5px;
+  border: 1px solid transparent;
+}
+
+input[type="text"] {
+  width: 70%;
+}
+
+textarea {
+  width: 70%;
+  height: 60px;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid #5275DE;
+  outline: none;
+} 
+
+#submit-new-task,
+#submit-edit-task {
+  align-self: flex-end;
+  margin-top: 10px;
+}

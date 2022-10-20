@@ -31,6 +31,10 @@ export const lists = {
     this.allTasks[index].dueDate = newDueDate;
   },
 
+  editDueTime(index, newDueTime) {
+    this.allTasks[index].dueTime = newDueTime;
+  },
+
   editPriority(index, newPriority) {
     this.allTasks[index].priority = newPriority;
   },

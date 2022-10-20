@@ -1,5 +1,6 @@
-import { lists } from './taskLists.js';
-import { projects } from './projectList.js';
+import { DOMManager } from '../domManager.js';
+import { lists } from '../task/taskLists.js';
+import { projects } from '../projects/projectList.js';
 import { startOfToday, isToday, parseISO, addWeeks, isBefore } from "date-fns";
 
 
@@ -38,6 +39,9 @@ export function sortTasksToDisplay(selectorId) {
     lists.allTasks.forEach((task) => {
       if (task.completed === true) {
         lists.addToDisplayedTasks(task);
+        DOMManager.taskCards.forEach((card) => {
+          card.classList.toggle('checked');
+        })
       }
     });
   } else {

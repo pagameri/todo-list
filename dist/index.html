@@ -11,7 +11,7 @@
   <div class="container">
   
     <header>
-      <div>ToDo'er</div>
+      <div>TasKit</div>
       <button type="button" id="add-new-task"></button>
     </header>
     
@@ -36,7 +36,7 @@
       <details class="side-details">
         <summary>Add New Project</summary>
         <form action="" method="post" name="new-project-form">
-          <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" required>
+          <input type="text" name="project-name" id="project-name" placeholder="Project name" minlength="3" required> <!--required is not working for some reason-->
           <button type="submit" id="submit-new-project"></button>
         </form>
       </details>
@@ -45,23 +45,7 @@
       <ul class="projects-counter"></ul>
     </div>
 
-
-    <div class="main-content">
-      <div class="task-card">
-          <div class="task-info">
-            <div class="checkbox">X</div>
-            <div class="task">Task</div>
-            <div class="project">Project</div>
-          </div>
-          <div class="task-control">
-            <button class="more-info"></button>
-            <button class="move-project"></button>
-            <button class="edit-project"></button>
-            <button class="delete-project"></button>
-          </div>
-          <div class="description"></div>
-      </div>
-
+    <div class="main-content"></div> 
     
   </div>
 </div>
@@ -69,12 +53,17 @@
   <div>
     <div id="new-task-modal" class="modal closed">
       <div class="modal-header">
-        <span id="close-new-task" class="close-button">&times;</span>
         <div>New Task</div>
+        <span id="close-new-task" class="close-button">&times;</span>
       </div>
       <div class="modal-content">
-        <form action="" name="new-task-form">
-            <input type="text" name="title" id="title-new" placeholder="Title">
+        <form action="" method="post" name="new-task-form">
+          <fieldset>
+            <span>
+              <label for="title-new">Title</label>
+              <input type="text" name="title" id="title-new" required>
+            </span>
+          </fieldset>
       
           <fieldset>
             <span>
@@ -111,7 +100,7 @@
 
             <span>
               <label for="description-new">Description</label>
-              <textarea name="description-new" id="description-new" rows="4" cols="50"></textarea>
+              <textarea name="description-new" id="description-new"></textarea>
             </span>
           </fieldset>
 
@@ -123,12 +112,17 @@
   <div>
     <div id="edit-task-modal" class="modal closed">
       <div class="modal-header">
-        <span id="close-edit-task" class="close-button">&times;</span>
         <div>Edit Task</div>
+        <span id="close-edit-task" class="close-button">&times;</span>
       </div>
       <div class="modal-content">
-        <form action="" name="edit-task-form">
-            <input type="text" name="title" id="title-edit" placeholder="Title">
+        <form action="" method="post" name="edit-task-form">
+          <fieldset>
+            <span>
+              <label for="title-edit">Title</label>
+              <input type="text" name="title" id="title-edit" required>
+            </span>
+          </fieldset>
       
           <fieldset>
             <span>
@@ -165,11 +159,11 @@
 
             <span>
               <label for="description-edit">Description</label>
-              <textarea name="description-edit" id="description-edit" rows="4" cols="50"></textarea>
+              <textarea name="description-edit" id="description-edit"></textarea>
             </span>
           </fieldset>
 
-          <button type="submit" id="submit-edit-task">Save Changes</button>
+          <button type="submit" id="submit-edit-task">Save Task</button>
         </form>
       </div>
     </div>

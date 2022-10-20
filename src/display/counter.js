@@ -1,7 +1,7 @@
 // import * as DOMManager from './domManager.js';
-import { DOMManager } from "./domManager.js";
-import { lists } from './taskLists.js';
-import { projects } from './projectList.js';
+import { DOMManager } from "../domManager.js";
+import { lists } from '../task/taskLists.js';
+import { projects } from '../projects/projectList.js';
 import { isToday, parseISO, isBefore } from "date-fns";
 import { weekFromToday } from './sortTasksToBeDisplayed.js';
 
@@ -20,6 +20,7 @@ export function displayTaskCount() {
   DOMManager.completedCounter.textContent = completedCount;
 }
 
+
 export function displayProjectCount() {
   DOMManager.projectsCounterLis.forEach((counter) => {
     _displayIndividualProjectCount(counter);
@@ -37,6 +38,7 @@ function _countToday() {
   return today;
 }
 
+
 function _countNextWeek(weekFromToday) {
   let nextWeek = 0;
   lists.allTasks.forEach((task) => {
@@ -46,6 +48,7 @@ function _countNextWeek(weekFromToday) {
   });
   return nextWeek;
 } 
+
 
 function _countNoDueDate() {
   let noDate = 0;
@@ -57,6 +60,7 @@ function _countNoDueDate() {
   return noDate;
 }
 
+
 function _countUncompleted() {
   let uncompleted = 0;
   lists.allTasks.forEach((task) => {
@@ -66,6 +70,7 @@ function _countUncompleted() {
   });
   return uncompleted;
 }
+
 
 function _countCompleted() {
   let completed = 0;
@@ -78,7 +83,7 @@ function _countCompleted() {
 } 
 
 
-export function _displayIndividualProjectCount(counter) {
+function _displayIndividualProjectCount(counter) {
   let liId = counter.dataset.projectNo;
   let projectCounter = countIndividualProject(liId);
   counter.textContent = projectCounter;

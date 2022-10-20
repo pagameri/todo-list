@@ -1,10 +1,10 @@
 // import * as DOMManager from './domManager.js';
-import { DOMManager } from "./domManager.js";
-import { projects } from './projectList.js';
-import { attachListSelectorListener } from './index.js';
-import { isToday, parseISO, isBefore } from "date-fns";
+import { DOMManager } from "../domManager.js";
+import { attachListSelectorListener } from '../index.js';
+import { projects } from '../projects/projectList.js';
 import { weekFromToday } from './sortTasksToBeDisplayed.js';
 import { countIndividualProject } from "./counter.js";
+import { isToday, parseISO, isBefore } from "date-fns";
 
 export let activeList = 'today';
 
@@ -20,6 +20,7 @@ export function activateSelector(list) {
     }
   }));
 }
+
 
 export function setActiveList(task) {
   if (activeList === task.project) {
@@ -38,6 +39,7 @@ export function setActiveList(task) {
     activeList = task.project;
   }
 }
+
 
 export function updateProjectSideBar() {
   DOMManager.projectSideBar.innerHTML = '';

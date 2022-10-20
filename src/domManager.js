@@ -23,7 +23,6 @@ export const DOMManager = (() => {
   const editTaskModalForm = document.querySelector('form[name="edit-task-form"]');
   const newProjectForm = document.querySelector('form[name="new-project-form"]');
 
-
   // form input
   const title = document.querySelector('#title-new');
   const dueDate = document.querySelector('#due-date-new');
@@ -55,9 +54,7 @@ export const DOMManager = (() => {
 
   // task cards
   const taskCards = document.querySelectorAll('.task-card');
-  // const taskInfos = document.querySelectorAll('.task-info');
-  // const checkboxes = document.
-
+  let descriptionContainers = document.querySelectorAll('description-container');
 
 
   return {
@@ -80,12 +77,9 @@ export const DOMManager = (() => {
     editBtns,
     modalForm,
     mainContent,
-
-    // form
     newTaskModalForm,
     editTaskModalForm,
     newProjectForm,
-
 
     // form input
     title,
@@ -114,10 +108,10 @@ export const DOMManager = (() => {
     completed,
     completedCounter,
     projectsCounter,
-    projectsCounters,
+    projectsCounterLis,
 
     // task cards
     taskCards,
-    projectsCounterLis,
+    descriptionContainers,
   }
 })()
